@@ -1,0 +1,55 @@
+{
+  "dataset_id": "MISSING_REAL_DATASET_ID",
+  "measurement_date_utc": "MISSING_REAL_MEASUREMENT_DATE",
+  "instrumentation": {
+    "camera_or_sensor": "MISSING_SENSOR",
+    "frame_rate_hz": 0,
+    "spatial_resolution": "MISSING_RESOLUTION",
+    "exposure_time": "MISSING_EXPOSURE_TIME"
+  },
+  "raw_data_files": [
+    "MISSING_RAW_REAL_MEASUREMENT_FILE"
+  ],
+  "timestamp_calibration": {
+    "status": "MISSING"
+  },
+  "spatial_calibration": {
+    "status": "MISSING"
+  },
+  "light_source_geometry": {
+    "status": "MISSING"
+  },
+  "occluder_or_boundary_geometry": {
+    "status": "MISSING"
+  },
+  "boundary_extraction_algorithm": {
+    "status": "MISSING"
+  },
+  "uncertainty_model": {
+    "status": "MISSING"
+  },
+  "baseline_models": {
+    "geometric_projection_baseline": { "status": "MISSING" },
+    "optical_phase_singularity_baseline": { "status": "MISSING" },
+    "shadow_boundary_kinematic_baseline": { "status": "MISSING" },
+    "null_noise_baseline": { "status": "MISSING" }
+  },
+  "measured_boundary_velocity_series": [
+    {
+      "t_seconds": 0,
+      "x_position": 0,
+      "velocity_m_per_s": 0,
+      "uncertainty_m_per_s": 0
+    }
+  ],
+  "negative_control": {
+    "status": "MISSING"
+  },
+  "comparison_result": {
+    "baseline_rejected": false,
+    "effect_size": 0,
+    "p_value_or_interval": "MISSING",
+    "interpretation": "REPLICATION_OR_EDUCATIONAL_ARTIFACT"
+  },
+  "reproducibility_script": "MISSING_SCRIPT"
+}

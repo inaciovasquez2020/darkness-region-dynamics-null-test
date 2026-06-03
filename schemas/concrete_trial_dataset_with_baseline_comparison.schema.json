@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+  "type": "object",
+  "required": [
+    "dataset_id",
+    "measurement_date_utc",
+    "instrumentation",
+    "raw_data_files",
+    "timestamp_calibration",
+    "spatial_calibration",
+    "light_source_geometry",
+    "occluder_or_boundary_geometry",
+    "boundary_extraction_algorithm",
+    "uncertainty_model",
+    "baseline_models",
+    "measured_boundary_velocity_series",
+    "negative_control",
+    "comparison_result",
+    "reproducibility_script"
+  ],
+  "properties": {
+    "dataset_id": { "type": "string", "minLength": 1 },
+    "measurement_date_utc": { "type": "string", "minLength": 1 },
+    "instrumentation": {
+      "type": "object",
+      "required": ["camera_or_sensor", "frame_rate_hz", "spatial_resolution", "exposure_time"],
+      "properties": {
+        "camera_or_sensor": { "type": "string", "minLength": 1 },
+        "frame_rate_hz": { "type": "number", "exclusiveMinimum": 0 },
+        "spatial_resolution": { "type": "string", "minLength": 1 },
+        "exposure_time": { "type": "string", "minLength": 1 }
+      }
+    },
+    "raw_data_files": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "timestamp_calibration": { "type": "object" },
+    "spatial_calibration": { "type": "object" },
+    "light_source_geometry": { "type": "object" },
+    "occluder_or_boundary_geometry": { "type": "object" },
+    "boundary_extraction_algorithm": { "type": "object" },
+    "uncertainty_model": { "type": "object" },
+    "baseline_models": {
+      "type": "object",
+      "required": [
+        "geometric_projection_baseline",
+        "optical_phase_singularity_baseline",
+        "shadow_boundary_kinematic_baseline",
+        "null_noise_baseline"
+      ]
+    },
+    "measured_boundary_velocity_series": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["t_seconds", "x_position", "velocity_m_per_s", "uncertainty_m_per_s"],
+        "properties": {
+          "t_seconds": { "type": "number" },
+          "x_position": { "type": "number" },
+          "velocity_m_per_s": { "type": "number" },
+          "uncertainty_m_per_s": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "negative_control": { "type": "object" },
+    "comparison_result": {
+      "type": "object",
+      "required": ["baseline_rejected", "effect_size", "p_value_or_interval", "interpretation"],
+      "properties": {
+        "baseline_rejected": { "type": "boolean" },
+        "effect_size": { "type": "number" },
+        "p_value_or_interval": { "type": "string", "minLength": 1 },
+        "interpretation": {
+          "type": "string",
+          "enum": [
+            "REPLICATION_OR_EDUCATIONAL_ARTIFACT",
+            "CONDITIONAL_DEVIATION_FROM_BASELINE",
+            "PLAUSIBLE_NEW_QUANTITATIVE_LAW_PENDING_REPLICATION"
+          ]
+        }
+      }
+    },
+    "reproducibility_script": { "type": "string", "minLength": 1 }
+  }
+}

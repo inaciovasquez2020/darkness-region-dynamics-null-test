@@ -1,0 +1,55 @@
+{
+  "object": "RealMeasurementAcquisitionAndBaselineComparisonTarget",
+  "status": "TARGET_DEFINED_DATASET_NOT_SUPPLIED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "minimal_missing_object_for_new_science": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+  "target_claim_if_completed": "A reproducible real-measurement null-test dataset for darkness-region boundary dynamics, with explicit comparison against prior optical-singularity, shadow-boundary, and geometric-projection baselines.",
+  "required_dataset_fields": [
+    "dataset_id",
+    "measurement_date_utc",
+    "instrumentation",
+    "raw_data_files",
+    "timestamp_calibration",
+    "spatial_calibration",
+    "light_source_geometry",
+    "occluder_or_boundary_geometry",
+    "boundary_extraction_algorithm",
+    "uncertainty_model",
+    "baseline_models",
+    "measured_boundary_velocity_series",
+    "negative_control",
+    "comparison_result",
+    "reproducibility_script"
+  ],
+  "baseline_models_required": [
+    "geometric_projection_baseline",
+    "optical_phase_singularity_baseline",
+    "shadow_boundary_kinematic_baseline",
+    "null_noise_baseline"
+  ],
+  "new_science_gate": {
+    "replicates_known_dark_point_or_shadow_motion": {
+      "new_science": false,
+      "status": "REPLICATION_OR_EDUCATIONAL_ARTIFACT"
+    },
+    "detects_real_measured_deviation_from_baseline": {
+      "new_science": "conditional",
+      "required_next": "ExternalExpertValidation"
+    },
+    "detects_new_quantitative_law_with_reproducible_real_data": {
+      "new_science": "plausible",
+      "required_next": "IndependentReplicationAndLiteratureReview"
+    }
+  },
+  "forbidden_claims_before_dataset": [
+    "new science",
+    "novel discovery",
+    "real measured effect established",
+    "physical darkness propagation validated",
+    "prior literature surpassed"
+  ],
+  "next_admissible_object": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison"
+}
