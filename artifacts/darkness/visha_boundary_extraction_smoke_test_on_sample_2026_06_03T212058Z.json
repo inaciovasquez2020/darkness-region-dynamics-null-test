@@ -1,0 +1,279 @@
+{
+  "object": "ViShaBoundaryExtractionSmokeTestOnSample",
+  "status": "VISHA_BOUNDARY_EXTRACTION_SMOKE_TEST_ON_SAMPLE_PASSED_EXTERNAL_COMPARISON_ONLY",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "external_comparison_dataset_sample_extracted": true,
+  "full_dataset_extraction_completed": false,
+  "pil_available": true,
+  "sample_root": "data/external_comparison/visha/extracted/sample_frames",
+  "input_counts": {
+    "train_images": 5,
+    "train_labels": 5,
+    "test_images": 5,
+    "test_labels": 5
+  },
+  "pairing_method": "fallback_zip_order",
+  "sample_pair_count": 10,
+  "dimension_checked_count": 10,
+  "dimension_match_count": 10,
+  "boundary_stats_count": 10,
+  "pair_results": [
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/train_images/images/bear/00000003.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/train_labels/labels/bear/00000007.png",
+      "image_sha256": "d36492f699b56916960fe2a0288822fe6ffa9916d4ccfc59beb16c6268e93aaa",
+      "label_sha256": "b132e791267542a7570d85c679a58cbbcf0cd11f00512d731584916d9a1d71b3",
+      "image_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 133421,
+        "boundary_pixels": 2313,
+        "foreground_fraction": 0.2554783241421569,
+        "boundary_fraction": 0.004428998161764706
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/train_images/images/bear/00000005.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/train_labels/labels/bear/00000008.png",
+      "image_sha256": "8bae840c2f39202ed6a5f06552e7fda68114796e72db26672d60f44fe720ed2f",
+      "label_sha256": "efca07e75cc2e9470fb446bdd0c69eef61a24aa8d4d44e2e41f80c298a611acf",
+      "image_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 127230,
+        "boundary_pixels": 2208,
+        "foreground_fraction": 0.2436236213235294,
+        "boundary_fraction": 0.004227941176470588
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/train_images/images/bear/00000026.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/train_labels/labels/bear/00000017.png",
+      "image_sha256": "a7563ac88d9166d2dfee1687686039a9c1b0e5659401ebcf2efa5c7027c37e93",
+      "label_sha256": "8ad6efc082d8f9cdded39d896c1129d12704db5b98c82168da41d1552b9e7d7c",
+      "image_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 143090,
+        "boundary_pixels": 2150,
+        "foreground_fraction": 0.27399280024509803,
+        "boundary_fraction": 0.0041168811274509805
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/train_images/images/bear/00000034.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/train_labels/labels/bear/00000022.png",
+      "image_sha256": "0b638eec4c531264b7936fa1fee7759f46b364285f0c6905147eaa15c96bf738",
+      "label_sha256": "cd1d9b233d924fd2f567bb5f614c4a8e04801e803087ca76f8b3e56a77299bec",
+      "image_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 131149,
+        "boundary_pixels": 2243,
+        "foreground_fraction": 0.2511278339460784,
+        "boundary_fraction": 0.004294960171568628
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/train_images/images/bear/00000095.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/train_labels/labels/bear/00000054.png",
+      "image_sha256": "4bb2059594d4cc8b95418173007bff72911c2cbf9ea880752c8df002d647e1ec",
+      "label_sha256": "df552e431b7db73258f7726cef791c849cf654e7e01641fc6e4858006ada0233",
+      "image_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 544,
+        "height": 960,
+        "mode": "RGB"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 132382,
+        "boundary_pixels": 2049,
+        "foreground_fraction": 0.2534888174019608,
+        "boundary_fraction": 0.003923483455882353
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/test_images/images/dance1/00000003.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/test_labels/labels/dance1/00000007.png",
+      "image_sha256": "bf1e3dbb349367686cef52f567adc063289b56d4c6230fc398a5e491075547b2",
+      "label_sha256": "8f7068eb01d66b7a354035cc05694b487ac6077350f81d9b515d3cca347c2ac7",
+      "image_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "L"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 76417,
+        "boundary_pixels": 2035,
+        "foreground_fraction": 0.3244607676630435,
+        "boundary_fraction": 0.008640455163043478
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/test_images/images/dance1/00000005.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/test_labels/labels/dance1/00000008.png",
+      "image_sha256": "904239f1f391c4d810c6f42ac360195e2b6d9b10931cc56e56a89605a766abbb",
+      "label_sha256": "f4629c45c7178e4c2c5e0e9368d6d5bd04fd1355d97b4e62d02651d7c03422b9",
+      "image_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "L"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 76746,
+        "boundary_pixels": 2055,
+        "foreground_fraction": 0.3258576766304348,
+        "boundary_fraction": 0.008725373641304348
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/test_images/images/dance1/00000026.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/test_labels/labels/dance1/00000017.png",
+      "image_sha256": "89b6e3020201aa84727adf49b8a48b16571b43105ca550dcb63fbf060e6eb6bd",
+      "label_sha256": "a2ebe99ec29c96093f9640af3fc1866b7136cc98d296b3a85ddaab6b5dd2a9e5",
+      "image_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "L"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 75889,
+        "boundary_pixels": 2042,
+        "foreground_fraction": 0.3222189198369565,
+        "boundary_fraction": 0.008670176630434782
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/test_images/images/dance1/00000034.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/test_labels/labels/dance1/00000022.png",
+      "image_sha256": "4e5ccf78d6692ae4ed572f3a7e8de4e9174e7573eedb091dfc187dd55eaae0d3",
+      "label_sha256": "54397217b3f5512aca6aa99fd00f6af8ca321bbd890fdc61c86ce25c2aee142a",
+      "image_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "L"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 78322,
+        "boundary_pixels": 2108,
+        "foreground_fraction": 0.33254925271739133,
+        "boundary_fraction": 0.008950407608695652
+      }
+    },
+    {
+      "image": "data/external_comparison/visha/extracted/sample_frames/test_images/images/dance1/00000095.jpg",
+      "label": "data/external_comparison/visha/extracted/sample_frames/test_labels/labels/dance1/00000054.png",
+      "image_sha256": "2e985c52d8c8eb4bfb3ee88fec0785c3bd165f8e9f7cbecde3e3db8b86c3c0f3",
+      "label_sha256": "c3a0bae44d0b3d921d2bad1027f863d7cad632aac208f438e8b3911bde83f493",
+      "image_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "RGB"
+      },
+      "label_size": {
+        "width": 368,
+        "height": 640,
+        "mode": "L"
+      },
+      "dimension_match": true,
+      "label_boundary_stats": {
+        "status": "BOUNDARY_MASK_STATS_COMPUTED",
+        "foreground_pixels": 76489,
+        "boundary_pixels": 1912,
+        "foreground_fraction": 0.3247664741847826,
+        "boundary_fraction": 0.00811820652173913
+      }
+    }
+  ],
+  "valid_use": [
+    "boundary-extraction smoke test on external comparison sample",
+    "pipeline sanity check",
+    "shadow-mask processing check"
+  ],
+  "invalid_use": [
+    "new_science_dataset",
+    "novelty_validation",
+    "real_measured_darkness_boundary_claim",
+    "self_recorded_calibrated_measurement",
+    "full_dataset_benchmark_claim"
+  ],
+  "minimal_missing_object_for_new_science": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+  "next_admissible_object": "SupplySelfRecordedCalibratedRawVideoOrObtainExternalExpertValidationReply"
+}
