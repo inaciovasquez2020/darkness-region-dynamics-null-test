@@ -1,0 +1,6 @@
+DOWNLOAD_SOURCE=ViSha Google Drive
+URL=https://drive.google.com/drive/folders/1Hp2mn_ui8I9GfxpXbLZ8zOvLlc_YJH4X?usp=sharing
+BACKUP_PAGE=https://erasernut.github.io/ViSha.html
+USE=shadow-boundary extraction benchmark
+NOT_USE=new science dataset
+AFTER_DOWNLOAD=place unzipped folders under data/external_comparison/visha/
