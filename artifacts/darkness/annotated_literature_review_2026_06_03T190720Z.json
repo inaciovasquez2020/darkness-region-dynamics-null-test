@@ -1,0 +1,98 @@
+{
+  "object": "AnnotatedLiteratureReview",
+  "status": "OVERLAP_FOUND_NOVELTY_NOT_VALIDATED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "review_decision": "DO_NOT_CLAIM_NEW_SCIENCE_OR_NOVELTY",
+  "core_finding": "The broad idea of darkness-front, shadow-boundary, optical-vortex, or phase-singularity superluminal motion is already present in the literature and popular science coverage. The repository may still be useful as a schema/test-harness/null-test artifact, but that narrower contribution requires either a completed novelty review, expert validation, or real measured data.",
+  "annotated_sources": [
+    {
+      "id": "nature_2026_phase_singularities",
+      "title": "Superluminal correlations in ensembles of optical phase singularities",
+      "venue": "Nature",
+      "date": "2026-03-25",
+      "url": "https://www.nature.com/articles/s41586-026-10209-z",
+      "relevance": "Direct overlap. The paper reports direct ultrafast measurement of optical phase singularity ensembles and velocities exceeding the speed of light before annihilation.",
+      "novelty_effect": "Blocks broad novelty claims about darkness-like optical singularities moving superluminally."
+    },
+    {
+      "id": "scientific_american_2026_darkness_framing",
+      "title": "What’s faster than light? Darkness",
+      "venue": "Scientific American",
+      "date": "2026-04-30",
+      "url": "https://www.scientificamerican.com/article/whats-faster-than-light-darkness/",
+      "relevance": "Direct popular-science framing. Describes dark spots, optical vortices, and phase singularities as darkness-like structures that can appear superluminal.",
+      "novelty_effect": "Blocks ordinary-language novelty claims using the phrase speed of darkness unless the repository sharply distinguishes itself."
+    },
+    {
+      "id": "nye_berry_1974_wave_dislocations",
+      "title": "Dislocations in wave trains",
+      "venue": "Proceedings of the Royal Society A",
+      "date": "1974",
+      "url": "https://doi.org/10.1098/rspa.1974.0012",
+      "relevance": "Foundational wavefront-dislocation literature cited by the 2026 Nature article.",
+      "novelty_effect": "Blocks claims that wavefield zeros, dislocations, or singular optical defects are new concepts."
+    },
+    {
+      "id": "nye_1981_motion_structure_dislocations",
+      "title": "The motion and structure of dislocations in wavefronts",
+      "venue": "Proceedings of the Royal Society A",
+      "date": "1981",
+      "url": "https://doi.org/10.1098/rspa.1981.0149",
+      "relevance": "Foundational motion-of-wavefront-dislocations literature cited by the 2026 Nature article.",
+      "novelty_effect": "Blocks novelty claims about the motion law of darkness-like wavefront defects without a precise new theorem or experiment."
+    },
+    {
+      "id": "indebetouw_1993_optical_vortices",
+      "title": "Optical vortices and their propagation",
+      "venue": "Journal of Modern Optics",
+      "date": "1993",
+      "url": "https://doi.org/10.1080/09500349314550101",
+      "relevance": "Prior optical-vortex propagation literature cited by the 2026 Nature article.",
+      "novelty_effect": "Blocks broad novelty claims about propagating optical vortices."
+    },
+    {
+      "id": "freund_2000_optical_vortex_trajectories",
+      "title": "Optical vortex trajectories",
+      "venue": "Optics Communications",
+      "date": "2000",
+      "url": "https://doi.org/10.1016/S0030-4018(00)00723-0",
+      "relevance": "Prior optical-vortex trajectory literature cited by the 2026 Nature article.",
+      "novelty_effect": "Blocks broad novelty claims about vortex path or trajectory analysis."
+    },
+    {
+      "id": "global_journals_2025_darkness_synchronization_protocols",
+      "title": "Darkness-based Synchronization Protocols: Harnessing Superluminal Frontiers",
+      "venue": "Global Journal of Science Frontier Research",
+      "date": "2025",
+      "url": "https://journalofscience.org/index.php/GJSFR/article/download/103004/27090/47601",
+      "relevance": "Lower-trust but directly overlapping terminology: darkness propagation, boundary dynamics, superluminal frontiers, geometric projection, and level-set evolution.",
+      "novelty_effect": "Additional block against broad terminology novelty; not sufficient alone, but enough to require narrower comparison."
+    }
+  ],
+  "validated_current_claim": "Repository contains a boundary-only null-test/schema package and a review packet.",
+  "invalid_claims": [
+    "new science",
+    "novel discovery",
+    "first darkness-speed framework",
+    "physical darkness propagation validated",
+    "real measured effect established",
+    "external novelty validated"
+  ],
+  "remaining_admissible_completion_objects": [
+    "NarrowClaimDifferentiationAgainstOpticalPhaseSingularityLiterature",
+    "ExternalExpertValidationReply",
+    "ConcreteTrialDatasetWithRealMeasurements"
+  ],
+  "send_external_expert_validation_request": {
+    "status": "BLOCKED_RECIPIENT_NOT_SUPPLIED",
+    "minimal_missing_object": "ExternalExpertRecipient"
+  },
+  "supply_concrete_trial_dataset": {
+    "status": "BLOCKED_DATASET_NOT_SUPPLIED",
+    "minimal_missing_object": "ConcreteTrialDatasetWithRealMeasurements"
+  },
+  "next_admissible_object": "NarrowClaimDifferentiationAgainstOpticalPhaseSingularityLiteratureOrExternalExpertValidationReplyOrRealMeasuredDataset"
+}
