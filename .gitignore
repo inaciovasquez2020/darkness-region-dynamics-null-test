@@ -3,3 +3,7 @@ __pycache__/
 .pytest_cache/
 dist/
 .DS_Store
+
+# External comparison datasets: referenced locally, not committed.
+data/external_comparison/visha/downloads/*.zip
+data/external_comparison/visha/extracted/

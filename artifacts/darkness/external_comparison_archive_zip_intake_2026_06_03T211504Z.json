@@ -1,0 +1,48 @@
+{
+  "object": "ExternalComparisonArchiveZipIntake",
+  "status": "EXTERNAL_COMPARISON_ARCHIVE_SAVED_AND_EXTRACTED_NO_FRAME_FILES_DETECTED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "external_comparison_dataset_downloaded": true,
+  "archive_source_user_supplied": "/Users/inaciof.vasquez/Downloads/Archive.zip",
+  "archive_local_path": "data/external_comparison/visha/downloads/Archive.zip",
+  "archive_sha256": "121d8415f719e69f6694819059a4f3a74a1c4ca5c1799c2322d551ee7e8e5f08",
+  "archive_size_bytes": 871062346,
+  "extracted_local_path": "data/external_comparison/visha/extracted/Archive",
+  "zip_entry_count": 12,
+  "extracted_file_count": 10,
+  "contains_train_entries": true,
+  "contains_test_entries": true,
+  "contains_video_or_frame_like_files": false,
+  "first_50_zip_entries": [
+    "test/",
+    "__MACOSX/._test",
+    "test/images.zip",
+    "__MACOSX/test/._images.zip",
+    "test/labels.zip",
+    "__MACOSX/test/._labels.zip",
+    "train/",
+    "__MACOSX/._train",
+    "train/images.zip",
+    "__MACOSX/train/._images.zip",
+    "train/labels.zip",
+    "__MACOSX/train/._labels.zip"
+  ],
+  "valid_use": [
+    "shadow_boundary_extraction_benchmark",
+    "boundary_extraction_pipeline_testing",
+    "external_comparison_dataset"
+  ],
+  "invalid_use": [
+    "new_science_dataset",
+    "novelty_validation",
+    "real_measured_darkness_boundary_claim",
+    "self_recorded_calibrated_measurement"
+  ],
+  "minimal_missing_object_for_new_science": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+  "next_admissible_object": "InspectExternalComparisonArchiveEntriesOrDownloadCorrectViShaFrameZipOrSupplySelfRecordedCalibratedRawVideo",
+  "usable_for_boundary_extraction_smoke_test": false,
+  "archive_content_diagnosis": "Archive contains train/test entries but no detected image/video frame-like files with standard extensions."
+}
