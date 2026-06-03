@@ -1,0 +1,48 @@
+{
+  "object": "ExternalComparisonDatasetRegistry",
+  "status": "COMPARISON_DATASETS_IDENTIFIED_REAL_MEASUREMENT_NOT_SUPPLIED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "datasets": [
+    {
+      "id": "nature_2026_optical_phase_singularity_supplementary_video",
+      "use": "prior_art_baseline_only",
+      "not_use": "new_science_dataset",
+      "status": "SUPPLEMENTARY_VIDEO_AVAILABLE_FULL_DATA_AUTHOR_REQUEST"
+    },
+    {
+      "id": "visha_video_shadow_dataset",
+      "use": "shadow_boundary_extraction_benchmark",
+      "not_use": "calibrated_physical_velocity_claim",
+      "status": "PUBLIC_COMPARISON_DATASET_CANDIDATE"
+    },
+    {
+      "id": "complex_world_shadow_detection_dataset",
+      "use": "image_shadow_segmentation_baseline",
+      "not_use": "time_series_velocity_measurement",
+      "status": "PUBLIC_COMPARISON_DATASET_CANDIDATE"
+    },
+    {
+      "id": "s_eo_geometry_aware_shadow_dataset",
+      "use": "geometry_aware_shadow_baseline",
+      "not_use": "lab_darkness_front_dynamics_claim",
+      "status": "PUBLIC_COMPARISON_DATASET_CANDIDATE"
+    },
+    {
+      "id": "slow_flow_high_speed_optical_flow_dataset",
+      "use": "motion_estimation_velocity_extraction_validation",
+      "not_use": "darkness_specific_physical_claim",
+      "status": "PUBLIC_COMPARISON_DATASET_CANDIDATE"
+    }
+  ],
+  "best_repository_path": [
+    "Use ViSha or shadow datasets to validate boundary extraction.",
+    "Use Slow Flow to validate velocity extraction.",
+    "Use Nature 2026 only as prior-art baseline.",
+    "Supply self-recorded calibrated raw video as the real measurement dataset."
+  ],
+  "minimal_missing_object_for_new_science": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+  "next_admissible_object": "DownloadOrReferenceExternalComparisonDatasetOrSupplyConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison"
+}
