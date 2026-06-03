@@ -1,0 +1,12 @@
+{
+  "object": "RawRealMeasurementRecordingProtocol",
+  "status": "PROTOCOL_ONLY_RAW_VIDEO_NOT_SUPPLIED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "required_raw_video_path": "data/real_measurements/raw/light_occluder_boundary_trial_001.mov",
+  "required_metadata_path": "data/real_measurements/metadata/light_occluder_boundary_trial_001.metadata.json",
+  "required_observations_path": "data/real_measurements/extracted/light_occluder_boundary_trial_001.boundary_observations.csv",
+  "next_admissible_object": "RawRealMeasurementRecording"
+}

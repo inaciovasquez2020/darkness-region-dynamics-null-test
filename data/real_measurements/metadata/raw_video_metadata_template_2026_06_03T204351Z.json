@@ -1,0 +1,33 @@
+{
+  "dataset_id": "light_occluder_boundary_trial_001",
+  "raw_video_file": "data/real_measurements/raw/light_occluder_boundary_trial_001.mov",
+  "measurement_date_utc": "MISSING",
+  "instrumentation": {
+    "camera_or_sensor": "MISSING",
+    "frame_rate_hz": 0,
+    "spatial_resolution": "MISSING",
+    "exposure_time": "MISSING"
+  },
+  "spatial_calibration": {
+    "scale_value": 0,
+    "scale_unit": "MISSING",
+    "pixels_per_scale_unit": 0
+  },
+  "light_source_geometry": {
+    "description": "MISSING"
+  },
+  "occluder_or_boundary_geometry": {
+    "description": "MISSING"
+  },
+  "boundary_extraction_algorithm": {
+    "method": "manual_or_scripted_threshold_tracking",
+    "status": "MISSING_EXTRACTION"
+  },
+  "uncertainty_model": {
+    "position_uncertainty_pixels": 0,
+    "time_uncertainty_seconds": 0
+  },
+  "negative_control": {
+    "description": "MISSING"
+  }
+}
