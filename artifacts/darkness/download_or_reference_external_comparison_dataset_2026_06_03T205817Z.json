@@ -1,0 +1,31 @@
+{
+  "object": "DownloadOrReferenceExternalComparisonDataset",
+  "status": "EXTERNAL_COMPARISON_DATASETS_REFERENCED_NOT_MIRRORED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "external_comparison_dataset_referenced": true,
+  "external_comparison_dataset_downloaded": false,
+  "download_policy": "REFERENCE_ONLY_UNTIL_LICENSE_SIZE_AND_REPRODUCIBILITY_DECISION",
+  "referenced_dataset_ids": [
+    "visha_video_shadow_dataset",
+    "slow_flow_high_speed_optical_flow_dataset",
+    "s_eo_geometry_aware_shadow_dataset",
+    "nature_2026_optical_phase_singularity"
+  ],
+  "valid_use": [
+    "shadow_boundary_extraction_benchmark",
+    "motion_estimation_velocity_extraction_validation",
+    "geometry_aware_shadow_baseline",
+    "prior_art_baseline_only"
+  ],
+  "invalid_use": [
+    "new_science_dataset",
+    "novelty_validation",
+    "real_measured_darkness_boundary_claim",
+    "prior_literature_surpassed"
+  ],
+  "minimal_missing_object_for_new_science": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+  "next_admissible_object": "SupplySelfRecordedCalibratedRawVideoOrObtainExternalExpertValidationReply"
+}

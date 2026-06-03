@@ -1,0 +1,41 @@
+{
+  "object": "ExternalComparisonDatasetReferences",
+  "status": "REFERENCED_NOT_MIRRORED",
+  "datasets": [
+    {
+      "id": "visha_video_shadow_dataset",
+      "name": "ViSha Video Shadow Detection Dataset",
+      "official_page": "https://erasernut.github.io/ViSha.html",
+      "code_page": "https://github.com/eraserNut/ViSha",
+      "use": "shadow_boundary_extraction_benchmark",
+      "not_use": "calibrated_physical_velocity_claim",
+      "local_status": "REFERENCE_ONLY_NOT_DOWNLOADED"
+    },
+    {
+      "id": "slow_flow_high_speed_optical_flow_dataset",
+      "name": "Slow Flow",
+      "official_page": "https://www.cvlibs.net/projects/slow_flow/",
+      "code_page": "https://github.com/JJanai/slowflow",
+      "use": "motion_estimation_velocity_extraction_validation",
+      "not_use": "darkness_specific_physical_claim",
+      "local_status": "REFERENCE_ONLY_NOT_DOWNLOADED"
+    },
+    {
+      "id": "s_eo_geometry_aware_shadow_dataset",
+      "name": "S-EO Geometry-Aware Shadow Dataset",
+      "official_page": "https://centreborelli.github.io/shadow-eo/",
+      "code_page": "https://github.com/centreborelli/shadow-eo-dataset",
+      "use": "geometry_aware_shadow_baseline",
+      "not_use": "lab_darkness_front_dynamics_claim",
+      "local_status": "REFERENCE_ONLY_NOT_DOWNLOADED"
+    },
+    {
+      "id": "nature_2026_optical_phase_singularity",
+      "name": "Superluminal correlations in ensembles of optical phase singularities",
+      "official_page": "https://www.nature.com/articles/s41586-026-10209-z",
+      "use": "prior_art_baseline_only",
+      "not_use": "new_science_dataset",
+      "local_status": "REFERENCE_ONLY_AUTHOR_DATA_REQUIRED_FOR_FULL_DATA"
+    }
+  ]
+}
