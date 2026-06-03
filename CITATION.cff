@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "Darkness Region Dynamics Null Test"
+message: "If you use this schema package, cite it as a no-claims conditional test framework."
+type: software
+authors:
+  - family-names: Vasquez
+    given-names: Inacio
+date-released: 2026-06-03
+license: MIT
+abstract: "A bounded no-claims schema for testing whether controlled dark-region matter traversal produces residual effects beyond known fields."
+keywords:
+  - dark-region dynamics
+  - null test
+  - residual model
+  - claim boundary
+  - no new physics claim

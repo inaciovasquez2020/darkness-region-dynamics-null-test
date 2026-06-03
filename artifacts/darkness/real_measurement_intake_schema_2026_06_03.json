@@ -1,0 +1,53 @@
+{
+  "object": "RealMeasurementIntakeSchema",
+  "status": "REAL_MEASUREMENT_INTAKE_SCHEMA_ONLY_NO_DATA_SUPPLIED",
+  "purpose": "Define the required structure for real dark-region traversal measurements without asserting an empirical result.",
+  "required_fields": {
+    "dataset_id": "string",
+    "apparatus_id": "string",
+    "probe_id": "string",
+    "operator_id_or_lab_id": "string",
+    "timestamp_utc": "ISO8601",
+    "epsilon": "positive_number",
+    "bandwidth_B": "string_or_object",
+    "tau": "positive_number",
+    "eta": "positive_number",
+    "N_min": "positive_integer",
+    "known_field_model_id": "string",
+    "calibration_files": "array_of_file_references",
+    "trials": "array_of_real_trial_records"
+  },
+  "real_trial_record_required_fields": {
+    "trial_id": "string",
+    "timestamp_utc": "ISO8601",
+    "Phi_gamma_dark_field": "numeric_array",
+    "Phi_gamma_light_field": "numeric_array",
+    "environment_dark": "object",
+    "environment_light": "object",
+    "gamma_dark": "numeric_array",
+    "gamma_light": "numeric_array",
+    "K": "numeric_array",
+    "R_m": "numeric_array",
+    "residual_norm": "number",
+    "photon_flux_verdict": "boolean",
+    "environment_match_verdict": "boolean",
+    "null_verdict": "boolean"
+  },
+  "acceptance_conditions": [
+    "actual_measurements_supplied=true",
+    "synthetic=false",
+    "N >= N_min",
+    "all photon_flux_verdict values are true",
+    "all environment_match_verdict values are true",
+    "all residual_norm values are computed",
+    "all records are complete"
+  ],
+  "claim_boundary": {
+    "real_data_required_for_null_result": true,
+    "synthetic_data_permitted_for_schema_tests_only": true,
+    "new_physics_claim_allowed": false,
+    "darkness_medium_claim_allowed": false,
+    "darkness_field_existence_claim_allowed": false
+  },
+  "next_admissible_object": "RealConcreteTrialDatasetWithMeasurements"
+}

@@ -1,0 +1,80 @@
+{
+  "object": "DarknessRegionDynamicsNullTest",
+  "status": "CONDITIONAL_TEST_SCHEMA_ONLY_NO_NEW_PHYSICS_CLAIM",
+  "known_physics_baseline": {
+    "darkness_definition": "absence_or_low_flux_of_detected_photons",
+    "matter_traversal_claim": "matter_can_travel_through_spacetime_regions_with_low_detected_photon_flux",
+    "medium_claim": false
+  },
+  "hypothesis_under_test": {
+    "candidate_object": "DarknessFieldD",
+    "required_distinction_from_absence": [
+      "D_nonzero",
+      "stress_energy_T_D_nonzero_or_measurable_coupling",
+      "reproducible_residual_not_explained_by_known_fields"
+    ]
+  },
+  "definitions": {
+    "dark_region": "forall x in U_dark, Phi_gamma_dark(x;B) < epsilon",
+    "illuminated_control_region": "forall x in U_light, Phi_gamma_light(x;B) >= epsilon",
+    "residual": "R_m = gamma_dark - gamma_light - K",
+    "null_dataset": "valid_dataset and forall trials, residual_norm <= tau",
+    "excluded_region": "{D in C_D : predicted_residual_norm_A(D) > tau}"
+  },
+  "conditional_theorem": {
+    "name": "FiniteSensitivityDarknessCouplingExclusionTheorem",
+    "assumptions": [
+      "DarkRegion(U_dark,epsilon,B)",
+      "IlluminatedControlRegion(U_light,epsilon,B)",
+      "FixedKnownFields(U_dark,U_light,K)",
+      "CalibratedProbe(m)",
+      "CalibratedTolerance(tau)",
+      "MeasuredNullDataset",
+      "N >= N_min"
+    ],
+    "conclusion": "All tested couplings in C_D whose predicted residual norm exceeds tau are excluded for apparatus class A, probe m, bandwidth B, regions U_dark/U_light, and known-field model K."
+  },
+  "forbidden_claims": [
+    "DarknessFieldD_exists",
+    "darkness_is_a_medium",
+    "darkness_universally_nonphysical",
+    "T_D_mu_nu_equals_zero_universally",
+    "new_physics_detected",
+    "matter_travels_inside_darkness_as_substance"
+  ],
+  "valid_claim": "Controlled dark-region traversal experiments can exclude measurable matter-coupling effects above tolerance tau within a specified apparatus class.",
+  "dataset_schema_required": {
+    "dataset_id": "string",
+    "apparatus_id": "string",
+    "probe_id": "string",
+    "epsilon": "positive_number",
+    "bandwidth_B": "detector_bandwidth",
+    "tau": "positive_number",
+    "eta": "positive_number",
+    "N_min": "positive_integer",
+    "known_field_model_id": "string",
+    "trials": [
+      {
+        "trial_id": "string",
+        "timestamp": "ISO8601",
+        "Phi_gamma_dark_field": "array",
+        "Phi_gamma_light_field": "array",
+        "environment_dark": "object",
+        "environment_light": "object",
+        "gamma_dark": "array",
+        "gamma_light": "array",
+        "K": "array",
+        "R_m": "array",
+        "residual_norm": "number",
+        "photon_flux_verdict": "boolean",
+        "environment_match_verdict": "boolean",
+        "null_verdict": "boolean"
+      }
+    ]
+  },
+  "actual_measurements_supplied": false,
+  "null_result_proven": false,
+  "anomaly_proven": false,
+  "darkness_field_proven": false,
+  "next_admissible_object": "ConcreteTrialDatasetWithMeasurementsOrStop"
+}

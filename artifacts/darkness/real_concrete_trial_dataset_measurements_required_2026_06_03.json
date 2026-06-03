@@ -1,0 +1,38 @@
+{
+  "object": "RealConcreteTrialDatasetWithMeasurements",
+  "status": "MEASUREMENT_DATA_REQUIRED_NOT_SUPPLIED",
+  "synthetic": false,
+  "actual_measurements_supplied": false,
+  "dataset_id": null,
+  "apparatus_id": null,
+  "probe_id": null,
+  "operator_id_or_lab_id": null,
+  "timestamp_utc": null,
+  "epsilon": null,
+  "bandwidth_B": null,
+  "tau": null,
+  "eta": null,
+  "N_min": null,
+  "known_field_model_id": null,
+  "calibration_files": [],
+  "trials": [],
+  "null_result_proven": false,
+  "anomaly_proven": false,
+  "darkness_field_proven": false,
+  "new_physics_detected": false,
+  "valid_only_after_real_measurements": [
+    "NullDataset",
+    "NonNullDataset",
+    "ReproducibleAnomalyDataset",
+    "FiniteSensitivityDarknessCouplingExclusionTheorem instance"
+  ],
+  "forbidden_claims": [
+    "real_null_result_without_real_measurements",
+    "real_anomaly_without_real_measurements",
+    "new_physics_detected",
+    "DarknessFieldD_exists",
+    "darkness_is_a_medium"
+  ],
+  "minimal_missing_object": "ConcreteTrialDatasetWithRealMeasurements",
+  "next_admissible_object": "SupplyConcreteTrialDatasetWithRealMeasurementsOrStop"
+}
