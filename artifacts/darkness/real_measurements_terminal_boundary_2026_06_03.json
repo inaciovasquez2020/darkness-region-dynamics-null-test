@@ -1,0 +1,26 @@
+{
+  "object": "RealMeasurementsTerminalBoundary",
+  "status": "STOPPED_AT_REAL_MEASUREMENTS_BOUNDARY",
+  "reason": "No real measured trajectory dataset has been supplied.",
+  "current_verified_objects": [
+    "DarknessRegionDynamicsNullTest",
+    "ConcreteTrialDatasetWithSyntheticNullData",
+    "RealMeasurementIntakeSchema",
+    "RealConcreteTrialDatasetWithMeasurementsRequired"
+  ],
+  "verified_repository_state": {
+    "no_claims_package_committed": true,
+    "repository_hygiene_committed": true,
+    "pycache_removed": true,
+    "gitignore_added": true
+  },
+  "not_proven": [
+    "real_null_result",
+    "real_anomaly",
+    "new_physics_detected",
+    "DarknessFieldD_exists",
+    "darkness_is_a_medium"
+  ],
+  "minimal_missing_object": "ConcreteTrialDatasetWithRealMeasurements",
+  "next_admissible_object": "SupplyConcreteTrialDatasetWithRealMeasurementsOrStop"
+}
