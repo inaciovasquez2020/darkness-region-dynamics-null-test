@@ -1,0 +1,40 @@
+{
+  "object": "LiteratureNoveltyReviewOrExternalExpertValidation",
+  "status": "REQUEST_PACKET_CREATED_REVIEW_NOT_COMPLETED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "valid_current_status": {
+    "repository_schema": true,
+    "synthetic_null_dataset": true,
+    "real_measurement_intake_schema": true,
+    "terminal_boundary": true
+  },
+  "new_science_requires": "ConcreteTrialDatasetWithRealMeasurements",
+  "novelty_claim_requires": "CompletedLiteratureNoveltyReviewOrExternalExpertValidation",
+  "acceptable_completion_objects": [
+    "CompletedAnnotatedLiteratureNoveltyReview",
+    "ExternalExpertValidation",
+    "ConcreteTrialDatasetWithRealMeasurements"
+  ],
+  "literature_review_queries": [
+    "dark region dynamics null test",
+    "darkness propagation speed measurement",
+    "shadow boundary dynamics experiment",
+    "optical extinction front propagation",
+    "causal speed of darkness",
+    "light removal boundary propagation",
+    "transient illumination boundary dynamics",
+    "darkness front propagation optical measurement"
+  ],
+  "forbidden_claims_until_completion": [
+    "new science",
+    "novel discovery",
+    "first demonstration",
+    "field solved",
+    "physical effect validated",
+    "real-world measurement confirmed"
+  ],
+  "next_admissible_object": "CompletedLiteratureNoveltyReviewOrExternalExpertValidation",
+  "minimal_missing_object": "AnnotatedLiteratureReviewOrExternalExpertReplyOrRealMeasuredDataset"
+}
