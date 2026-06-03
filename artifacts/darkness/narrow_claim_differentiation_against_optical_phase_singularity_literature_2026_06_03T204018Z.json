@@ -1,0 +1,81 @@
+{
+  "object": "NarrowClaimDifferentiationAgainstOpticalPhaseSingularityLiterature",
+  "status": "NARROW_DIFFERENTIATION_CREATED_NOVELTY_NOT_VALIDATED",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "external_expert_validation_supplied": false,
+  "broad_claim_blocked": true,
+  "blocked_broad_claim": "darkness or dark points can move faster than light",
+  "prior_art_anchors": [
+    {
+      "id": "nature_2026_phase_singularity_ensembles",
+      "claim_blocked": "direct measurement of superluminal optical phase singularity dynamics",
+      "source": "Nature 2026, Superluminal correlations in ensembles of optical phase singularities",
+      "url": "https://www.nature.com/articles/s41586-026-10209-z"
+    },
+    {
+      "id": "scientific_american_2026_darkness_framing",
+      "claim_blocked": "ordinary-language framing of dark points or darkness moving faster than light",
+      "source": "Scientific American 2026, What's faster than light? Darkness",
+      "url": "https://www.scientificamerican.com/article/whats-faster-than-light-darkness/"
+    },
+    {
+      "id": "nye_berry_1974_wave_dislocations",
+      "claim_blocked": "wave dislocations and phase-singularity foundations",
+      "source": "Nye and Berry 1974, Dislocations in wave trains",
+      "url": "https://www.jstor.org/stable/78498"
+    }
+  ],
+  "valid_narrow_repository_claim": "This repository provides a boundary-only null-test, intake-schema, and baseline-comparison framework for future real measurements of darkness-region boundary dynamics.",
+  "invalid_claims": [
+    "new science",
+    "novel physics",
+    "speed of darkness discovered",
+    "first darkness faster than light framework",
+    "relativity violation",
+    "real measured effect established",
+    "prior literature surpassed"
+  ],
+  "possible_future_novelty_claim": {
+    "status": "CONDITIONAL_ON_NEW_INPUT",
+    "claim": "A reproducible real-measurement null-test dataset shows a statistically supported deviation from geometric-projection, shadow-boundary, optical-phase-singularity, and null-noise baselines.",
+    "requires": [
+      "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+      "BaselineModelComparisonResult",
+      "UncertaintyModel",
+      "NegativeControl",
+      "ExternalExpertValidationOrIndependentReplication"
+    ]
+  },
+  "claim_boundary_table": [
+    {
+      "claim": "Dark points can appear superluminal",
+      "status": "PRIOR_ART",
+      "repository_may_claim": false
+    },
+    {
+      "claim": "Darkness faster than light as a public framing",
+      "status": "PRIOR_ART_OR_POPULARIZATION",
+      "repository_may_claim": false
+    },
+    {
+      "claim": "Boundary-only schema and null-test harness",
+      "status": "CURRENT_REPOSITORY_ARTIFACT",
+      "repository_may_claim": true
+    },
+    {
+      "claim": "New measured deviation from prior baselines",
+      "status": "BLOCKED_DATASET_NOT_SUPPLIED",
+      "repository_may_claim": false
+    },
+    {
+      "claim": "Novel scientific contribution",
+      "status": "BLOCKED_REQUIRES_DATASET_AND_EXTERNAL_VALIDATION",
+      "repository_may_claim": false
+    }
+  ],
+  "next_admissible_object": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparisonOrExternalExpertValidationReply",
+  "minimal_missing_object": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison"
+}
