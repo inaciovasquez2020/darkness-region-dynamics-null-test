@@ -1,0 +1,95 @@
+{
+  "object": "SampleOnlyViShaNestedArchiveExtraction",
+  "status": "SAMPLE_ONLY_EXTRACTION_COMPLETED_EXTERNAL_COMPARISON_ONLY",
+  "reason": "Full nested extraction failed with OSError Errno 28: no space left on device.",
+  "boundary_only": true,
+  "new_science": false,
+  "novelty_validated": false,
+  "real_measurement_dataset_supplied": false,
+  "external_comparison_dataset_downloaded": true,
+  "external_comparison_dataset_sample_extracted": true,
+  "full_extraction_completed": false,
+  "usable_for_boundary_extraction_smoke_test": true,
+  "sample_limit_per_zip": 5,
+  "sample_root": "data/external_comparison/visha/extracted/sample_frames",
+  "source_nested_zips": {
+    "train_images": "data/external_comparison/visha/extracted/Archive/train/images.zip",
+    "train_labels": "data/external_comparison/visha/extracted/Archive/train/labels.zip",
+    "test_images": "data/external_comparison/visha/extracted/Archive/test/images.zip",
+    "test_labels": "data/external_comparison/visha/extracted/Archive/test/labels.zip"
+  },
+  "source_nested_zip_sha256": {
+    "train_images": "b974adb2ff1ec30101243599f61f1e22e8ae9765706d04d8424343a0662c1cdf",
+    "train_labels": "7d7b9133be46f9064a01052a3ef45064c41e750b3b9a0b03e18e20116a27978a",
+    "test_images": "68835ec1f44ad1dfaaa3133cb7fd101a4f4ba8c255e99f27b4f96c655216d79e",
+    "test_labels": "acc4476f8de70cfd8236efdea88b18b75dd5cc52f732d0f8d2ac75abf83f43d1"
+  },
+  "counts": {
+    "train_images": {
+      "zip_entries": 4788,
+      "usable_entries": 4788,
+      "sample_extracted_files": 5
+    },
+    "train_labels": {
+      "zip_entries": 4788,
+      "usable_entries": 4788,
+      "sample_extracted_files": 5
+    },
+    "test_images": {
+      "zip_entries": 6897,
+      "usable_entries": 6897,
+      "sample_extracted_files": 5
+    },
+    "test_labels": {
+      "zip_entries": 6897,
+      "usable_entries": 6897,
+      "sample_extracted_files": 5
+    }
+  },
+  "sampled_entries": {
+    "train_images": [
+      "images/bear/00000005.jpg",
+      "images/bear/00000026.jpg",
+      "images/bear/00000095.jpg",
+      "images/bear/00000003.jpg",
+      "images/bear/00000034.jpg"
+    ],
+    "train_labels": [
+      "labels/bear/00000007.png",
+      "labels/bear/00000017.png",
+      "labels/bear/00000054.png",
+      "labels/bear/00000022.png",
+      "labels/bear/00000008.png"
+    ],
+    "test_images": [
+      "images/dance1/00000005.jpg",
+      "images/dance1/00000026.jpg",
+      "images/dance1/00000095.jpg",
+      "images/dance1/00000003.jpg",
+      "images/dance1/00000034.jpg"
+    ],
+    "test_labels": [
+      "labels/dance1/00000007.png",
+      "labels/dance1/00000017.png",
+      "labels/dance1/00000054.png",
+      "labels/dance1/00000022.png",
+      "labels/dance1/00000008.png"
+    ]
+  },
+  "total_usable_entries": 23370,
+  "total_sample_extracted_files": 20,
+  "valid_use": [
+    "sample boundary-extraction smoke test",
+    "pipeline validation on external comparison data",
+    "external comparison only"
+  ],
+  "invalid_use": [
+    "new_science_dataset",
+    "novelty_validation",
+    "real_measured_darkness_boundary_claim",
+    "self_recorded_calibrated_measurement",
+    "full_dataset_extraction_claim"
+  ],
+  "minimal_missing_object_for_new_science": "ConcreteTrialDatasetWithRealMeasurementsAndBaselineComparison",
+  "next_admissible_object": "BuildViShaBoundaryExtractionSmokeTestOnSampleOrSupplySelfRecordedCalibratedRawVideo"
+}
