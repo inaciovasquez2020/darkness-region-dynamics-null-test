@@ -1,0 +1,38 @@
+{
+  "object": "RealMeasurementAcquisitionPacketTarget",
+  "date": "2026-06-23",
+  "repository": "darkness-region-dynamics-null-test",
+  "status": "REAL_MEASUREMENT_ACQUISITION_PACKET_TARGET_ONLY",
+  "theorem_closure": false,
+  "empirical_claim": false,
+  "purpose": "Name the bounded acquisition packet required before any real null-result or anomaly claim can be checked.",
+  "minimal_missing_object": "ConcreteTrialDatasetWithRealMeasurements",
+  "required_packet_files": [
+    "data/real_measurements/raw/light_occluder_boundary_trial_001.mov",
+    "data/real_measurements/metadata/light_occluder_boundary_trial_001.metadata.json",
+    "data/real_measurements/extracted/light_occluder_boundary_trial_001.boundary_observations.csv"
+  ],
+  "required_future_checks": [
+    "metadata dataset_id matches light_occluder_boundary_trial_001",
+    "metadata raw_video_file points to the raw recording",
+    "instrumentation frame_rate_hz is positive",
+    "spatial calibration pixels_per_scale_unit is positive",
+    "uncertainty model is explicit",
+    "extracted observations contain at least two boundary observations",
+    "boundary observation rows parse as numeric time and position values"
+  ],
+  "current_expected_checker_status": {
+    "tool": "tools/check_real_measurement_inputs.py",
+    "exit_code": 2,
+    "status_line": "STATUS=RAW_REAL_MEASUREMENT_INPUTS_MISSING",
+    "minimal_missing_object_line": "MINIMAL_MISSING_OBJECT=RawRealMeasurementRecording"
+  },
+  "non_claims": [
+    "does not supply a real measured trajectory dataset",
+    "does not prove a real null result",
+    "does not prove a real anomaly",
+    "does not detect new physics",
+    "does not assert DarknessFieldD exists",
+    "does not assert darkness is a medium"
+  ]
+}
