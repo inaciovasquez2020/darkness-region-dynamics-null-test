@@ -12,10 +12,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify generic sibling-exchange kernel and fiber geometry
         run: python3 scratch/zlg_mc5_sibling_kernel.py | tee /tmp/zlg_mc5_sibling_kernel.log
-      - name: Upload verifier log
+      - name: Verify generic sibling common-factor closure
+        run: python3 scratch/zlg_mc5_sibling_common_factor.py | tee /tmp/zlg_mc5_sibling_common_factor.log
+      - name: Upload verifier logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: zlg-mc5-sibling-kernel
-          path: /tmp/zlg_mc5_sibling_kernel.log
+          path: |
+            /tmp/zlg_mc5_sibling_kernel.log
+            /tmp/zlg_mc5_sibling_common_factor.log
           if-no-files-found: error
