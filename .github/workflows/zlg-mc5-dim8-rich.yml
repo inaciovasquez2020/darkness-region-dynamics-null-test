@@ -1,0 +1,21 @@
+name: zlg-mc5-dim8-rich
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  witness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify rich affine witnesses
+        run: python3 scratch/zlg_mc5_dim8_rich_witness.py
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-dim8-rich
+          path: /tmp/zlg_mc5_dim8_rich.json
+          if-no-files-found: error
