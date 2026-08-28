@@ -1,0 +1,21 @@
+name: zlg-mc5-rank5-extra-defect
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify rank-five extra-kernel leakage defect
+        run: python3 scratch/zlg_mc5_rank5_extra_defect.py | tee /tmp/zlg_mc5_rank5_extra_defect.log
+      - name: Upload verifier log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-rank5-extra-defect
+          path: /tmp/zlg_mc5_rank5_extra_defect.log
+          if-no-files-found: error
