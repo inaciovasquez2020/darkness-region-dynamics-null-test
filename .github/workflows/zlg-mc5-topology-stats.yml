@@ -1,0 +1,30 @@
+name: zlg-mc5-topology-stats
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+    paths:
+      - scratch/zlg_mc5_topology_stats.py
+      - .github/workflows/zlg-mc5-topology-stats.yml
+  workflow_dispatch:
+jobs:
+  topology-stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run exact NIST k=5 topology census
+        run: |
+          set -o pipefail
+          python3 scratch/zlg_mc5_topology_stats.py | tee /tmp/zlg_mc5_topology_stats.log
+          grep -q '^ZLG_MC5_TOPOLOGY_STATS_BEGIN$' /tmp/zlg_mc5_topology_stats.log
+          grep -q '^ZLG_MC5_TOPOLOGY_STATS_END$' /tmp/zlg_mc5_topology_stats.log
+      - name: Upload topology census
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-topology-stats
+          path: |
+            /tmp/zlg_mc5_topology_stats.log
+            /tmp/zlg_mc5_topology_stats.json
+          if-no-files-found: error
