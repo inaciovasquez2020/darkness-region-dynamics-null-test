@@ -10,12 +10,12 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Run hardened exact ZLG MC4 dimension-5 sweep
-        run: python3 scratch/zlg_finish_mc4_safe.py
+      - name: Run unified exact ZLG level-4 certificate
+        run: python3 scratch/zlg_level4_complete.py
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zlg-mc4-result-safe
-          path: /tmp/zlg_result_safe.json
+          name: zlg-level4-complete
+          path: /tmp/zlg_level4_complete.json
           if-no-files-found: ignore
