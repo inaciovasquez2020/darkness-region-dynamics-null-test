@@ -1,21 +1,21 @@
-name: zlg-mc5-topology-census
+name: zlg-mc5-dim9-lift-sweep
 on:
   push:
     branches:
       - scratch/zlg-mc4-finite-20260828
   workflow_dispatch:
 jobs:
-  census:
+  sweep:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Run exact MC5 topology census
-        run: python3 scratch/zlg_mc5_topology_stats.py
+      - name: Run exact MC5 dimension-9 lift sweep
+        run: python3 scratch/zlg_mc5_dim9_lift_sweep.py
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zlg-mc5-topology-stats
-          path: /tmp/zlg_mc5_topology_stats.json
+          name: zlg-mc5-dim9
+          path: /tmp/zlg_mc5_dim9.json
           if-no-files-found: error
