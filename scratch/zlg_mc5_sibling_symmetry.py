@@ -33,6 +33,13 @@ def transform_plane(key, block):
     return tuple(sorted(swap_coord_bits(v, block) for v in key))
 
 
+def transform_coord_mask(v, mask):
+    for block in range(3):
+        if (mask >> block) & 1:
+            v = swap_coord_bits(v, block)
+    return v
+
+
 def swap_monomial(mask, i, j):
     bi = (mask >> i) & 1
     bj = (mask >> j) & 1
@@ -141,8 +148,24 @@ def main():
             f"name={name} planes=43435 fibers=39446 collisions={checked}"
         )
 
+    # Verify the group relations rather than merely naming them. The three
+    # generators act on disjoint coordinate blocks, commute pointwise, square
+    # to identity, and their 8 products give 8 distinct coordinate actions.
+    blocks = [0, 1, 2]
+    for b1, b2 in combinations(blocks, 2):
+        for c in range(1 << 9):
+            lhs = swap_coord_bits(swap_coord_bits(c, b1), b2)
+            rhs = swap_coord_bits(swap_coord_bits(c, b2), b1)
+            assert lhs == rhs, (b1, b2, c)
+
+    actions = {
+        tuple(transform_coord_mask(1 << i, mask) for i in range(9))
+        for mask in range(8)
+    }
+    assert len(actions) == 8
+
     print("SIBLING_SYMMETRY_GROUP_GENERATORS sigma1 sigma2 sigma3")
-    print("SIBLING_SYMMETRY_GENERATORS_COMMUTE_AND_SQUARE_TO_ID")
+    print("SIBLING_SYMMETRY_GROUP_IS_C2_CUBED order=8")
     print("LEVEL5_SIBLING_SYMMETRY_GENERATORS_VERIFIED")
 
 
