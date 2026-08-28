@@ -30,6 +30,21 @@ def pmul(u, v):
     return a & c, (a & d) ^ (c & b) ^ (b & d)
 
 
+def lift_pair(u, z):
+    a, b = u
+    return a ^ (b if z else 0)
+
+
+def verify_pair_product_identity():
+    # Pointwise Boolean-ring proof of
+    #   F(P,p)F(Q,q) = F(PQ, Pq+Qp+pq),
+    # where F(P,p)=P+zp and z^2=z.
+    for P, p, Q, q, z in product((0, 1), repeat=5):
+        left = lift_pair((P, p), z) & lift_pair((Q, q), z)
+        right = lift_pair(pmul((P, p), (Q, q)), z)
+        assert left == right, (P, p, Q, q, z, left, right)
+
+
 def degree(tt):
     a = [(tt >> x) & 1 for x in range(M)]
     for i in range(N):
@@ -105,6 +120,8 @@ def circuit(bits):
 
 
 def main():
+    verify_pair_product_identity()
+
     unique = set()
     by_label = Counter()
 
@@ -117,6 +134,8 @@ def main():
 
     by_unique = Counter((degree(f), dimension(f)) for f in unique)
     out = {
+        "zero_leak_pair_product_identity_verified": True,
+        "pair_identity_scalar_cases": 32,
         "labelings_checked": 1 << 11,
         "distinct_leakage_functions": len(unique),
         "all_zero_slices_vanish": True,
@@ -132,6 +151,7 @@ def main():
     Path("/tmp/zlg_mc5_disjoint_absorption.json").write_text(
         json.dumps(out, indent=2, sort_keys=True) + "\n"
     )
+    print("ZERO_LEAK_PAIR_PRODUCT_IDENTITY_VERIFIED")
     print(json.dumps(out, sort_keys=True))
     print("LEVEL5_DISJOINT_ABSORPTION_CLOSED")
 
