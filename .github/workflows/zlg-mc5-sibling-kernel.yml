@@ -1,0 +1,21 @@
+name: zlg-mc5-sibling-kernel
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify generic sibling-exchange kernel and fiber geometry
+        run: python3 scratch/zlg_mc5_sibling_kernel.py | tee /tmp/zlg_mc5_sibling_kernel.log
+      - name: Upload verifier log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-sibling-kernel
+          path: /tmp/zlg_mc5_sibling_kernel.log
+          if-no-files-found: error
