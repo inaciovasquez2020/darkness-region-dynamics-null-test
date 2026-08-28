@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Clone authoritative NIST source
         run: git clone --depth=1 https://github.com/usnistgov/Circuits.git /tmp/nist
+      - name: Patch GCC 13 dependent-type parse only
+        run: sed -i 's/hash<bfl::bf_tt<N>::table_t::word_t>()/hash<typename bfl::bf_tt<N>::table_t::word_t>()/' /tmp/nist/src/mc_sym/bf_tt.h
       - name: Prepare residual pairs
         run: python3 scratch/zlg_mc5_prepare_nist_exact.py /tmp/nist/data/mc_dim/mc5_dim10.txt /tmp/nist/data/mc_dim/mc4_dim8.txt
       - name: Compile NIST exact affine-equivalence harness
