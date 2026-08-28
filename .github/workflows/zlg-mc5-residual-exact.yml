@@ -1,0 +1,31 @@
+name: zlg-mc5-residual-exact
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  exact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clone pinned NIST Circuits
+        run: |
+          git clone https://github.com/usnistgov/Circuits.git /tmp/nist
+          git -C /tmp/nist checkout 4e23832e62f490aeffd8770b1285d99056b5f8bf
+      - name: Patch GCC 13 dependent-type parse only
+        run: sed -i 's/hash<bfl::bf_tt<N>::table_t::word_t>()/hash<typename bfl::bf_tt<N>::table_t::word_t>()/' /tmp/nist/src/mc_sym/bf_tt.h
+      - name: Prepare 512 unique fingerprint-matched pairs
+        run: python3 scratch/zlg_mc5_residual_prepare_exact.py /tmp/nist/data/mc_dim/mc3_dim6.txt /tmp/nist/data/mc_dim/mc4_dim6.txt
+      - name: Compile NIST exact affine-equivalence harness
+        run: g++ -O3 -std=c++17 -fopenmp -mpopcnt -I/tmp/nist/src/mc_sym scratch/zlg_mc5_residual_exact.cpp /tmp/nist/src/mc_sym/logger.cpp /tmp/nist/src/mc_sym/utils.cpp -o /tmp/zlg_residual_exact
+      - name: Verify all 512 exact affine equivalences
+        run: /tmp/zlg_residual_exact /tmp/zlg_mc5_residual_exact_pairs.tsv | tee /tmp/zlg_mc5_residual_exact.log
+      - name: Upload exact result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-residual-exact
+          path: /tmp/zlg_mc5_residual_exact.log
+          if-no-files-found: error
