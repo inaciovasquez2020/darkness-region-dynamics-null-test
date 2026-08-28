@@ -1,0 +1,21 @@
+name: zlg-mc4-finite-sweep
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run exact ZLG MC4 dimension-5 sweep
+        run: python3 scratch/zlg_finish_mc4.py
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc4-result
+          path: /tmp/zlg_result.json
+          if-no-files-found: ignore
