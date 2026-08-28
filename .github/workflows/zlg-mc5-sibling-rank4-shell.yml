@@ -2,7 +2,7 @@ name: zlg-mc5-sibling-rank4-shell
 on:
   push:
     branches:
-      - scratch/zlg-mc4-finite-20260828
+      - scratch/zlg-mc5-rank4-20260828
   workflow_dispatch:
 jobs:
   verify:
