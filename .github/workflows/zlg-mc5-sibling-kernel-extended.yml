@@ -12,10 +12,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify rank-six sibling kernel through dimension ten
         run: python3 scratch/zlg_mc5_sibling_kernel_extended.py | tee /tmp/zlg_mc5_sibling_kernel_extended.log
-      - name: Upload verifier log
+      - name: Verify sibling common-factor closure
+        run: python3 scratch/zlg_mc5_sibling_common_factor.py | tee /tmp/zlg_mc5_sibling_common_factor.log
+      - name: Upload verifier logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: zlg-mc5-sibling-kernel-extended
-          path: /tmp/zlg_mc5_sibling_kernel_extended.log
+          path: |
+            /tmp/zlg_mc5_sibling_kernel_extended.log
+            /tmp/zlg_mc5_sibling_common_factor.log
           if-no-files-found: error
