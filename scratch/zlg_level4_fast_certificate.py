@@ -2,8 +2,10 @@
 from collections import Counter
 import json
 from pathlib import Path
-from zlg_finish_mc4 import fetch, truth, degree, dim_invariant, hyperplane_q
-from zlg_finish_mc4_safe import affine_equiv_safe
+from zlg_finish_mc4 import (
+    fetch, truth, degree, dim_invariant, hyperplane_q,
+    affine_equiv_upto_affine,
+)
 
 URL8='https://raw.githubusercontent.com/usnistgov/Circuits/master/data/mc_dim/mc4_dim8.txt'
 URL7='https://raw.githubusercontent.com/usnistgov/Circuits/master/data/mc_dim/mc4_dim7.txt'
@@ -68,16 +70,20 @@ def main():
     actual_keys={(g,a,c) for g,a,c,d,di,q in higher}
     assert actual_keys==set(EXPECTED),(sorted(actual_keys-set(EXPECTED)),sorted(set(EXPECTED)-actual_keys))
 
+    # This search is used only for positive witnesses. A True result is sound:
+    # the routine constructs an invertible affine input map and directly checks
+    # that the residual truth table has degree <= 1. No negative conclusion is
+    # drawn from this routine in this certificate.
     verified=[]
     for g,a,c,d,di,q in higher:
         target=EXPECTED[(g,a,c)]
         assert degree(mc3[target],6)==d,(g,a,c,d,target,degree(mc3[target],6))
-        ok=affine_equiv_safe(q,mc3[target],6)
+        ok=affine_equiv_upto_affine(q,mc3[target],6)
         assert ok,(g,a,c,d,target)
         verified.append((g,a,c,d,target))
 
     out={
-      'checker':'recompute all hyperplanes; safe directional-signature affine backtracking; direct affine-map verification',
+      'checker':'recompute all hyperplanes; positive affine-map witnesses with direct residual verification',
       'inputs':{
         'mc4_dim8':{'lines':42,'git_blob_sha':SHA8},
         'mc4_dim7':{'lines':321,'git_blob_sha':SHA7},
