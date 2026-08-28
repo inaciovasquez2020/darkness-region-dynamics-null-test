@@ -1,0 +1,21 @@
+name: zlg-mc5-dim8-witness
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  witness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify 42 affine equivalences
+        run: python3 scratch/zlg_mc5_dim8_affine_witness.py
+      - name: Upload witness result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-dim8-witness
+          path: /tmp/zlg_mc5_dim8_witness.json
+          if-no-files-found: error
