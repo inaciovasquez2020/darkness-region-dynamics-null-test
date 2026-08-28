@@ -1,4 +1,4 @@
-name: zlg-mc5-dim9-lift-sweep
+name: zlg-mc5-dim8-antiperiod
 on:
   push:
     branches:
@@ -10,12 +10,12 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Run exact MC5 dimension-9 lift sweep
-        run: python3 scratch/zlg_mc5_dim9_lift_sweep.py
+      - name: Run MC5 dim8 anti-period fingerprint test
+        run: python3 scratch/zlg_mc5_dim8_antiperiod_fingerprint.py
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zlg-mc5-dim9
-          path: /tmp/zlg_mc5_dim9.json
+          name: zlg-mc5-dim8-fp
+          path: /tmp/zlg_mc5_dim8_fp.json
           if-no-files-found: error
