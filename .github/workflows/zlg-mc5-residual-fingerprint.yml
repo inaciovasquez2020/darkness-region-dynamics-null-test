@@ -1,0 +1,21 @@
+name: zlg-mc5-residual-fingerprint
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exclude all MC3/MC4 dimension-6 classes by affine-invariant fingerprint
+        run: python3 scratch/zlg_mc5_residual_fingerprint.py
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-residual-fingerprint
+          path: /tmp/zlg_mc5_residual_fingerprint.json
+          if-no-files-found: error
