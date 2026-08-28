@@ -28,3 +28,5 @@ jobs:
             /tmp/zlg_mc5_topology_stats.log
             /tmp/zlg_mc5_topology_stats.json
           if-no-files-found: error
+
+# retrigger after workflow registration
