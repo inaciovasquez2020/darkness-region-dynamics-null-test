@@ -3,7 +3,7 @@ from collections import Counter
 import json
 from pathlib import Path
 from zlg_finish_mc4 import (
-    fetch, truth, degree, dim_invariant, hyperplane_q, tt_hex,
+    fetch, truth, degree, dim_invariant, hyperplane_q, tt_hex, rank,
     affine_equiv_upto_affine,
 )
 from zlg_finish_mc4_safe import affine_equiv_safe
@@ -37,6 +37,52 @@ def sweep(lines,n):
                 out.append((gi,a,c,d,di,q))
     return counts,out
 
+def linear_structures(vals,n):
+    out=[]
+    for u in range(1<<n):
+        d0=vals[0]^vals[u]
+        if all((vals[x]^vals[x^u])==d0 for x in range(1<<n)):
+            out.append((u,d0))
+    return out
+
+def essentialize_one(vals,n):
+    """Remove one linear-structure direction from an n-variable function.
+
+    Requires NIST dimension n-1.  If D_u f = epsilon is constant, choose a
+    linear basis (v_1,...,v_{n-1},u).  In those coordinates
+        f(y,t) = h(y) + epsilon*t,
+    so h is affine-equivalent to f and is the exact essential representative.
+    """
+    assert dim_invariant(vals,n)==n-1
+    ls=linear_structures(vals,n)
+    assert len(ls)==2,ls
+    u,epsilon=next((u,e) for u,e in ls if u)
+    comp=[]
+    current=[u]
+    for i in range(n):
+        e=1<<i
+        if rank(current+[e],n)>rank(current,n):
+            comp.append(e); current.append(e)
+        if len(comp)==n-1: break
+    assert len(comp)==n-1 and rank(comp+[u],n)==n
+    h=[]
+    for y in range(1<<(n-1)):
+        x=0
+        for i,v in enumerate(comp):
+            if (y>>i)&1: x^=v
+        h.append(vals[x])
+    assert dim_invariant(h,n-1)==n-1
+    assert degree(h,n-1)==degree(vals,n)
+
+    # Directly verify the claimed splitting on all points.
+    for y in range(1<<(n-1)):
+        x=0
+        for i,v in enumerate(comp):
+            if (y>>i)&1: x^=v
+        assert vals[x]==h[y]
+        assert vals[x^u]==(h[y]^epsilon)
+    return h,u,epsilon,comp
+
 def main():
     l8=load(URL8,SHA8,42)
     l7=load(URL7,SHA7,321)
@@ -51,42 +97,45 @@ def main():
         elif d in (3,4): low_mc4d5.append((i,d,v,s))
     assert degree5==19 and len(low_mc4d5)==7
 
-    # Anti-period branch for dim(f)=6: dim(zf)=8. Every affine zero-fiber
-    # quotient of an MC4 dim8 representative having dimension 6 must be MC<=3.
+    # Anti-period branch for dim(f)=6: dim(zf)=8.  Quotients here have seven
+    # ambient variables and NIST dimension 6, so first quotient out their one
+    # linear-structure direction and classify the exact essential 6-var form.
     c8,q8=sweep(l8,8)
     dim6=[x for x in q8 if x[4]==6]
     assert len(dim6)==7,len(dim6)
     dim6_verified=[]
-    for g,a,c,d,di,q in dim6:
+    for g,a,c,d,di,q7 in dim6:
+        q,u,eps,comp=essentialize_one(q7,7)
         if d<=2:
-            # dim(q)=6 and quadratic => alternating rank 6 => MC(q)=3.
-            dim6_verified.append((g,a,c,d,'quadratic-MC3'))
+            # essential dim 6 quadratic => alternating rank 6 => MC=3.
+            dim6_verified.append((g,a,c,d,'quadratic-MC3',u,eps))
             continue
         hits=[]
         for ti,td,tv in mc3d6:
             if td!=d: continue
-            # Used only for positive witnesses; True includes direct residual check.
+            # Positive witness only; True includes direct affine residual check.
             if affine_equiv_upto_affine(q,tv,6): hits.append(ti)
         assert hits,(g,a,c,d,'no MC3 positive witness')
-        dim6_verified.append((g,a,c,d,hits))
+        dim6_verified.append((g,a,c,d,hits,u,eps))
 
-    # Anti-period branch for dim(f)=5: dim(zf)=7. Low-degree quotient must not
-    # lie in any of the seven low-degree MC4 dim5 classes. This is a NEGATIVE
-    # decision, so use the hardened complete affine-equivalence checker.
+    # Anti-period branch for dim(f)=5: dim(zf)=7.  Quotients have six ambient
+    # variables and dimension 5; essentialize to five variables before the
+    # complete negative comparison against the seven low-degree MC4 dim5 classes.
     c7,q7=sweep(l7,7)
     dim5_low=[x for x in q7 if x[4]==5 and x[3] in (3,4)]
     assert len(dim5_low)==14,len(dim5_low)
     bad=[]; tested=[]
-    for g,a,c,d,di,q in dim5_low:
+    for g,a,c,d,di,q6 in dim5_low:
+        q,u,eps,comp=essentialize_one(q6,6)
         hits=[]
         for ti,td,tv,ts in low_mc4d5:
             if td==d and affine_equiv_safe(q,tv,5): hits.append(ti)
-        tested.append((g,a,c,d,hits))
-        if hits: bad.append((g,a,c,d,tt_hex(q),hits))
+        tested.append((g,a,c,d,hits,u,eps))
+        if hits: bad.append((g,a,c,d,tt_hex(q),hits,u,eps))
     assert not bad,bad
 
     out={
-      'checker':'anti-period branches: positive direct affine witnesses for dim6; hardened complete negative checker for dim5',
+      'checker':'essentialize one linear-structure direction; positive direct affine witnesses for dim6; hardened complete negative checker for dim5',
       'inputs':{
         'mc4_dim8':{'lines':42,'git_blob_sha':SHA8},
         'mc4_dim7':{'lines':321,'git_blob_sha':SHA7},
