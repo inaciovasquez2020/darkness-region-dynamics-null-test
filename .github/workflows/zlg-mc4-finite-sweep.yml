@@ -17,7 +17,7 @@ jobs:
       - name: Prepare residual pairs
         run: python3 scratch/zlg_mc5_prepare_nist_exact.py /tmp/nist/data/mc_dim/mc5_dim10.txt /tmp/nist/data/mc_dim/mc4_dim8.txt
       - name: Compile NIST exact affine-equivalence harness
-        run: g++ -O3 -std=c++17 -fopenmp -I/tmp/nist/src/mc_sym scratch/zlg_mc5_nist_exact.cpp /tmp/nist/src/mc_sym/logger.cpp /tmp/nist/src/mc_sym/utils.cpp -o /tmp/zlg_nist_exact
+        run: g++ -O3 -std=c++17 -fopenmp -mpopcnt -I/tmp/nist/src/mc_sym scratch/zlg_mc5_nist_exact.cpp /tmp/nist/src/mc_sym/logger.cpp /tmp/nist/src/mc_sym/utils.cpp -o /tmp/zlg_nist_exact
       - name: Verify residual affine equivalences
         run: /tmp/zlg_nist_exact /tmp/zlg_mc5_nist_pairs.tsv | tee /tmp/zlg_mc5_nist_exact.log
       - name: Upload exact result
