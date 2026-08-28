@@ -1,21 +1,29 @@
-name: zlg-mc5-dim8-antiperiod
+name: zlg-mc5-nist-exact
 on:
   push:
     branches:
       - scratch/zlg-mc4-finite-20260828
   workflow_dispatch:
 jobs:
-  sweep:
+  exact:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Run MC5 dim8 anti-period fingerprint test
-        run: python3 scratch/zlg_mc5_dim8_antiperiod_fingerprint.py
-      - name: Upload result
+      - name: Clone authoritative NIST source
+        run: git clone --depth=1 https://github.com/usnistgov/Circuits.git /tmp/nist
+      - name: Patch GCC 13 dependent-type parse only
+        run: sed -i 's/hash<bfl::bf_tt<N>::table_t::word_t>()/hash<typename bfl::bf_tt<N>::table_t::word_t>()/' /tmp/nist/src/mc_sym/bf_tt.h
+      - name: Prepare residual pairs
+        run: python3 scratch/zlg_mc5_prepare_nist_exact.py /tmp/nist/data/mc_dim/mc5_dim10.txt /tmp/nist/data/mc_dim/mc4_dim8.txt
+      - name: Compile NIST exact affine-equivalence harness
+        run: g++ -O3 -std=c++17 -fopenmp -I/tmp/nist/src/mc_sym scratch/zlg_mc5_nist_exact.cpp -o /tmp/zlg_nist_exact
+      - name: Verify residual affine equivalences
+        run: /tmp/zlg_nist_exact /tmp/zlg_mc5_nist_pairs.tsv | tee /tmp/zlg_mc5_nist_exact.log
+      - name: Upload exact result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zlg-mc5-dim8-fp
-          path: /tmp/zlg_mc5_dim8_fp.json
+          name: zlg-mc5-nist-exact
+          path: /tmp/zlg_mc5_nist_exact.log
           if-no-files-found: error
