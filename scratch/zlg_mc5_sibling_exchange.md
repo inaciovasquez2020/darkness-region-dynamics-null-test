@@ -95,34 +95,71 @@ and therefore
 PQ+UV=x_1x_2=a_1\in S_3.
 \]
 
-Both \(PQ\) and \(UV\) lie outside \(S_3\): neither can use the \(a_3\) coefficient because that would introduce the unique degree-4 monomial \(x_1x_2x_3x_4\), while affine, \(a_1\), and \(a_2\) contain no degree-3 monomials capable of producing \(x_2x_3x_4+x_2x_5\). The factor planes are distinct modulo constants because their difference introduces \(x_1\), which is not in the span of \(P,x_2,1\).
+Both \(PQ\) and \(UV\) lie outside \(S_3\), and the factor planes are distinct modulo constants. Therefore the induced product-plane map is not injective, even on a nonzero product class. Zero-slice product geometry alone cannot close level 5.
 
-Therefore the induced product-plane map
+## Labelled leakage
 
-\[
-\kappa:\operatorname{Gr}_{\le2}(S_3/\langle1\rangle)\to B/S_3,
-\qquad
-\kappa(\langle\bar P,\bar Q\rangle)=[PQ],
-\]
-
-is not injective, even on a nonzero product class.
-
-## Consequence
-
-The implication
-
-\[
-PQ+UV\in S_3
-\Longrightarrow
-\text{same factor plane / zero-slice collapse}
-\]
-
-is false and must not be used to close level 5.
-
-The next usable object must retain the coupled leakage labels. If a full pair input has zero/leak components \((P,p)\) and \((Q,q)\), its product leakage is
+If a full pair input has zero/leak components \((P,p)\) and \((Q,q)\), its product leakage is
 
 \[
 \Theta(P,p;Q,q):=Pq+Qp+pq.
 \]
 
-The next bounded target is therefore a **labelled sibling-exchange lemma**: classify collisions \(PQ+UV\in S_3\) together with the constrained prefix-derived leakage labels \(p,q,u,v\), modulo the old leakage span. Zero-slice product geometry alone is insufficient.
+The next usable object must retain these coupled labels.
+
+## Disjoint sibling collision and absorption closure
+
+A stronger collision on the same triangular prefix is
+
+\[
+P=x_1,\qquad Q=a_1+a_3,
+\]
+
+\[
+U=x_1+x_6+a_2,\qquad V=a_3,
+\]
+
+with
+
+\[
+x_1(a_1+a_3)+(x_1+x_6+a_2)a_3=a_1+a_3\in S_3.
+\]
+
+The two factor planes are disjoint and all three prefix gates are live.
+
+Enumerating all \(2^{11}=2048\) compatible constant leakage labels produces 572 distinct leakage functions. Nevertheless every labelled circuit collapses to four ANDs.
+
+Let the slice-1 prefix outputs be
+
+\[
+c_1=(x_1+\lambda)(x_2+\mu),\qquad c_2,\qquad c_3.
+\]
+
+After expanding the two sibling gates, the only apparently extra product besides a single product against \(c_3\) is
+
+\[
+(x_1+\rho)c_1.
+\]
+
+Boolean absorption gives
+
+\[
+(x_1+\rho)c_1
+=(x_1+\rho)(x_1+\lambda)(x_2+\mu)
+\in\{0,c_1\}.
+\]
+
+Thus, after the first three ANDs computing \(c_1,c_2,c_3\), only one additional AND is required. The verifier constructs that fourth product explicitly and compares its truth table with the original five-gate leakage for every one of the 2048 labelings.
+
+Authoritative GitHub Actions run:
+
+- run: `33144244609`
+- job: `98761687893`
+- commit: `9d98ce30fab06d5fdb5a115362dc117549a88bce`
+- `labelings_checked = 2048`
+- `distinct_leakage_functions = 572`
+- `all_zero_slices_vanish = true`
+- `all_have_explicit_four_and_realization = true`
+- terminal marker: `LEVEL5_DISJOINT_ABSORPTION_CLOSED`
+
+This closes this disjoint labelled collision family only. It does not prove the full sibling-exchange branch. The next bounded target is to classify the remaining product-plane collisions after removing common-factor and Boolean-absorption families.
