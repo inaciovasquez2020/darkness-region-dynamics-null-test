@@ -1,0 +1,21 @@
+name: zlg-mc5-sibling-rank4-shell
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Classify rank-four sibling shell
+        run: python3 scratch/zlg_mc5_sibling_rank4_shell.py | tee /tmp/zlg_mc5_sibling_rank4_shell.log
+      - name: Upload verifier log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-sibling-rank4-shell
+          path: /tmp/zlg_mc5_sibling_rank4_shell.log
+          if-no-files-found: error
