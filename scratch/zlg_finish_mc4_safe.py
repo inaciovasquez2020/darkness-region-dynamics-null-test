@@ -25,6 +25,7 @@ def affine_equiv_safe(src,tgt,n,max_nodes=50_000_000):
     basis=[1<<i for i in range(n)]
     ss={u:direction_signature(src,u,n) for u in range(1,N)}
     ts={v:direction_signature(tgt,v,n) for v in range(1,N)}
+    if sorted(ss.values())!=sorted(ts.values()): return False
     cand={i:[v for v in range(1,N) if ts[v]==ss[basis[i]]] for i in range(n)}
     order=sorted(range(n),key=lambda i:len(cand[i]))
     chosen={}
