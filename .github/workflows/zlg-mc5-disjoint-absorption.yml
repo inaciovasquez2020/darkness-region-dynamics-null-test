@@ -1,0 +1,21 @@
+name: zlg-mc5-disjoint-absorption
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify all labelled disjoint-collision lifts
+        run: python3 scratch/zlg_mc5_disjoint_absorption.py
+      - name: Upload certificate
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zlg-mc5-disjoint-absorption
+          path: /tmp/zlg_mc5_disjoint_absorption.json
+          if-no-files-found: error
