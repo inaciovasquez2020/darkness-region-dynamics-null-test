@@ -1,21 +1,21 @@
-name: zlg-mc4-finite-sweep
+name: zlg-mc5-topology-census
 on:
   push:
     branches:
       - scratch/zlg-mc4-finite-20260828
   workflow_dispatch:
 jobs:
-  sweep:
+  census:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Run exact level-4 anti-period certificate
-        run: python3 scratch/zlg_antiperiod_certificate.py
+      - name: Run exact MC5 topology census
+        run: python3 scratch/zlg_mc5_topology_stats.py
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zlg-antiperiod
-          path: /tmp/zlg_antiperiod.json
-          if-no-files-found: ignore
+          name: zlg-mc5-topology-stats
+          path: /tmp/zlg_mc5_topology_stats.json
+          if-no-files-found: error
