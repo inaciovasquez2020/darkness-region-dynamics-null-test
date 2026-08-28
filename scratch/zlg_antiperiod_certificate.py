@@ -6,7 +6,7 @@ from zlg_finish_mc4 import (
     fetch, truth, degree, dim_invariant, hyperplane_q, tt_hex, rank,
     affine_equiv_upto_affine,
 )
-from zlg_finish_mc4_safe import affine_equiv_safe
+from zlg_finish_mc4_safe import affine_equiv_safe, direction_signature
 
 URL8='https://raw.githubusercontent.com/usnistgov/Circuits/master/data/mc_dim/mc4_dim8.txt'
 URL7='https://raw.githubusercontent.com/usnistgov/Circuits/master/data/mc_dim/mc4_dim7.txt'
@@ -46,19 +46,11 @@ def linear_structures(vals,n):
     return out
 
 def essentialize_one(vals,n):
-    """Remove one linear-structure direction from an n-variable function.
-
-    Requires NIST dimension n-1.  If D_u f = epsilon is constant, choose a
-    linear basis (v_1,...,v_{n-1},u).  In those coordinates
-        f(y,t) = h(y) + epsilon*t,
-    so h is affine-equivalent to f and is the exact essential representative.
-    """
     assert dim_invariant(vals,n)==n-1
     ls=linear_structures(vals,n)
     assert len(ls)==2,ls
     u,epsilon=next((u,e) for u,e in ls if u)
-    comp=[]
-    current=[u]
+    comp=[]; current=[u]
     for i in range(n):
         e=1<<i
         if rank(current+[e],n)>rank(current,n):
@@ -73,8 +65,6 @@ def essentialize_one(vals,n):
         h.append(vals[x])
     assert dim_invariant(h,n-1)==n-1
     assert degree(h,n-1)==degree(vals,n)
-
-    # Directly verify the claimed splitting on all points.
     for y in range(1<<(n-1)):
         x=0
         for i,v in enumerate(comp):
@@ -83,23 +73,25 @@ def essentialize_one(vals,n):
         assert vals[x^u]==(h[y]^epsilon)
     return h,u,epsilon,comp
 
+def fingerprint(vals,n):
+    return tuple(sorted(direction_signature(vals,u,n) for u in range(1,1<<n)))
+
 def main():
     l8=load(URL8,SHA8,42)
     l7=load(URL7,SHA7,321)
     l5=load(URL5,SHA5,26)
     l36=load(URL36,SHA36,7)
-    mc3d6=[(i,degree(truth(s,6),6),truth(s,6)) for i,s in enumerate(l36,1)]
-    low_mc4d5=[]
-    degree5=0
+    mc3d6=[]
+    for i,s in enumerate(l36,1):
+        v=truth(s,6)
+        mc3d6.append((i,degree(v,6),v,fingerprint(v,6)))
+    low_mc4d5=[]; degree5=0
     for i,s in enumerate(l5,1):
         v=truth(s,5); d=degree(v,5)
         if d==5: degree5+=1
-        elif d in (3,4): low_mc4d5.append((i,d,v,s))
+        elif d in (3,4): low_mc4d5.append((i,d,v,s,fingerprint(v,5)))
     assert degree5==19 and len(low_mc4d5)==7
 
-    # Anti-period branch for dim(f)=6: dim(zf)=8.  Quotients here have seven
-    # ambient variables and NIST dimension 6, so first quotient out their one
-    # linear-structure direction and classify the exact essential 6-var form.
     c8,q8=sweep(l8,8)
     dim6=[x for x in q8 if x[4]==6]
     assert len(dim6)==7,len(dim6)
@@ -107,53 +99,44 @@ def main():
     for g,a,c,d,di,q7 in dim6:
         q,u,eps,comp=essentialize_one(q7,7)
         if d<=2:
-            # essential dim 6 quadratic => alternating rank 6 => MC=3.
             dim6_verified.append((g,a,c,d,'quadratic-MC3',u,eps))
             continue
+        fp=fingerprint(q,6)
+        candidates=[(ti,tv) for ti,td,tv,tfp in mc3d6 if td==d and tfp==fp]
+        print('DIM6_FP',g,a,c,d,[ti for ti,_ in candidates],flush=True)
+        assert candidates,(g,a,c,d,'no MC3 fingerprint match')
         hits=[]
-        for ti,td,tv in mc3d6:
-            if td!=d: continue
-            # Positive witness only; True includes direct affine residual check.
+        for ti,tv in candidates:
             if affine_equiv_upto_affine(q,tv,6): hits.append(ti)
-        assert hits,(g,a,c,d,'no MC3 positive witness')
+        assert hits,(g,a,c,d,'fingerprint matched but no positive affine witness',[ti for ti,_ in candidates])
         dim6_verified.append((g,a,c,d,hits,u,eps))
 
-    # Anti-period branch for dim(f)=5: dim(zf)=7.  Quotients have six ambient
-    # variables and dimension 5; essentialize to five variables before the
-    # complete negative comparison against the seven low-degree MC4 dim5 classes.
     c7,q7=sweep(l7,7)
     dim5_low=[x for x in q7 if x[4]==5 and x[3] in (3,4)]
     assert len(dim5_low)==14,len(dim5_low)
     bad=[]; tested=[]
     for g,a,c,d,di,q6 in dim5_low:
         q,u,eps,comp=essentialize_one(q6,6)
+        fp=fingerprint(q,5)
+        candidates=[(ti,tv) for ti,td,tv,ts,tfp in low_mc4d5 if td==d and tfp==fp]
+        print('DIM5_FP',g,a,c,d,[ti for ti,_ in candidates],flush=True)
         hits=[]
-        for ti,td,tv,ts in low_mc4d5:
-            if td==d and affine_equiv_safe(q,tv,5): hits.append(ti)
-        tested.append((g,a,c,d,hits,u,eps))
+        for ti,tv in candidates:
+            if affine_equiv_safe(q,tv,5): hits.append(ti)
+        tested.append((g,a,c,d,[ti for ti,_ in candidates],hits,u,eps))
         if hits: bad.append((g,a,c,d,tt_hex(q),hits,u,eps))
     assert not bad,bad
 
     out={
-      'checker':'essentialize one linear-structure direction; positive direct affine witnesses for dim6; hardened complete negative checker for dim5',
+      'checker':'essentialize one linear-structure direction; affine-invariant directional fingerprint; positive witnesses for dim6; hardened complete negative checker for fingerprint-matched dim5 cases',
       'inputs':{
         'mc4_dim8':{'lines':42,'git_blob_sha':SHA8},
         'mc4_dim7':{'lines':321,'git_blob_sha':SHA7},
         'mc4_dim5':{'lines':26,'git_blob_sha':SHA5},
         'mc3_dim6':{'lines':7,'git_blob_sha':SHA36},
       },
-      'dim6_antiperiod_branch':{
-        'dim8_counts':dict(c8),
-        'dim6_zero_fiber_quotients':len(dim6),
-        'all_mc3_or_less':True,
-        'verified':dim6_verified,
-      },
-      'dim5_antiperiod_branch':{
-        'dim7_counts':dict(c7),
-        'low_degree_dim5_zero_fiber_quotients':len(dim5_low),
-        'mc4_dim5_matches':0,
-        'tested':tested,
-      },
+      'dim6_antiperiod_branch':{'dim8_counts':dict(c8),'dim6_zero_fiber_quotients':len(dim6),'all_mc3_or_less':True,'verified':dim6_verified},
+      'dim5_antiperiod_branch':{'dim7_counts':dict(c7),'low_degree_dim5_zero_fiber_quotients':len(dim5_low),'mc4_dim5_matches':0,'tested':tested},
       'antiperiod_level4_obstructions_closed':True,
     }
     Path('/tmp/zlg_antiperiod.json').write_text(json.dumps(out,indent=2)+'\n')
