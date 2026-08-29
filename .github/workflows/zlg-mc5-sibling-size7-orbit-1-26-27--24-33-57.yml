@@ -1,0 +1,20 @@
+name: zlg-mc5-sibling-size7-orbit-1-26-27--24-33-57
+
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify next size-7 sibling orbit closure
+        working-directory: scratch
+        run: python3 zlg_mc5_sibling_orbit_1_26_27__24_33_57.py
