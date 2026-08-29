@@ -1,0 +1,21 @@
+name: vasquez-quadratic-fresh-lift-dimension
+
+on:
+  push:
+    branches:
+      - scratch/zlg-mc4-finite-20260828
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify quadratic fresh-variable lift dimension certificate
+        run: python3 scratch/vasquez_quadratic_fresh_lift_dimension.py | tee /tmp/vasquez_quadratic_fresh_lift_dimension.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vasquez-quadratic-fresh-lift-dimension-log
+          path: /tmp/vasquez_quadratic_fresh_lift_dimension.log
