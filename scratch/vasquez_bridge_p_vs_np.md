@@ -147,6 +147,28 @@ shared ANDs: two per falsification mask, one to form `v_C s_C`, and `N-1` to mul
 
 Therefore exponentially many pinned-assignment restrictions do not force superpolynomial shared multiplicative complexity. This candidate is retired.
 
+## Candidate 2: partially pinned assignments — SELECTED
+
+Let a 3-CNF instance use `n` logical variables and `N = Theta(n^3)` possible 3-clause selector coordinates. Fix `r = floor(n/2)` logical variables as unpinned and, for every assignment `a` to the other `n-r` variables, add pinning clauses for those fixed variables while leaving the `r` variables free.
+
+For each restriction coordinate `a`, satisfiability is now an OR over `2^r` surviving witness assignments rather than a single monomial:
+
+\[
+SAT_a(s)=\bigvee_{b\in\{0,1\}^r} M_{a,b}(s),
+\]
+
+where
+
+\[
+M_{a,b}(s)=\prod_{C\in F_{a,b}}(1+s_C).
+\]
+
+The linear-size factorization that retired Candidate 1 computes one witness monomial at a time but does not by itself compute the OR/interference of all `2^r` witness monomials. Since `r = Theta(n) = Theta(N^{1/3})`, a lower bound exponential in `r` would already be superpolynomial in the encoding length `N`.
+
+No such lower bound is claimed. Candidate 2 has only survived the first cheap factorization test.
+
+The exact next question is whether the whole bundle `(SAT_a)_a` still has a polynomial shared triangular construction that exploits common witness structure. If yes, retire Candidate 2. If no explicit polynomial construction appears, search for an invariant whose value on the bundled OR-of-witnesses grows like `2^{Omega(r)}` while one shared coordinatewise AND has a provably controlled effect.
+
 ## Boundary
 
 ```text
@@ -156,10 +178,11 @@ FORWARD_FRONTIER := finite verified ZLG lift structure; level 4 closed; level 5 
 UNIVERSAL_ZLG_IF_PROVED := still insufficient alone for P != NP
 SHARED_RESTRICTION_LEMMA := retained
 PINNED_ASSIGNMENT_FAMILY := retired; shared MC <= 4N-1
+PARTIALLY_PINNED_FAMILY := selected; survives first cheap factorization test only
 EXACT_BRIDGE := SAT-specific shared-DAG superpolynomial obstruction
 P_NE_NP_PROVED := no
 ```
 
 ## Next bounded action
 
-Seek a SAT restriction family whose bundled outputs cannot be factorized as a product of independently generated local falsification masks. The next candidate must survive the test that a polynomial number of coordinate-mask generators plus a product tree already yields a polynomial shared circuit. Retire it immediately if such a shared factorization exists.
+Analyze Candidate 2 at the shared-DAG level before defining any new invariant. Try to factor the bundled `2^r`-witness OR using the same clause masks and shared intermediate products. If a polynomial-size recurrence exists, retire the family. Only if that direct construction fails should an invariant be introduced.
