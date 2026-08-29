@@ -19,3 +19,4 @@ jobs:
         with:
           name: vasquez-quadratic-fresh-lift-dimension-log
           path: /tmp/vasquez_quadratic_fresh_lift_dimension.log
+# trigger: quadratic-dimension-20260829
