@@ -106,68 +106,58 @@ The exact missing bridge is now:
 
 A valid bridge must use structure special to SAT and must constrain one shared polynomial-size DAG globally. Independent finite case enumeration, generic counting, or adding fresh variables cannot supply the required asymptotic growth by themselves.
 
-The desired scalable form is a SAT-specific quantity or family of simultaneous restrictions `B_N` satisfying both:
-
-1. **SAT growth:** `B_N(SAT_N)` exceeds every polynomial bound in `N` (or forces an equivalent contradiction for every `k=N^{O(1)}`).
-2. **One-DAG bound:** every triangular `k`-AND realization satisfies `B_N <= poly(N,k)`, with the bound proved from the shared gate parameters rather than by duplicating the circuit across restrictions.
-
-Then `k=N^{O(1)}` would contradict the SAT growth condition, yielding `STO` and hence `P != NP`.
-
 ## Shared-restriction lemma
 
 If one `k`-AND triangular circuit is evaluated on a family `R` of restrictions, the restrictions do not receive independent circuits. Bundling all restriction coordinates into the product algebra `A = F_2^R` produces the same `k` triangular coordinatewise products with the same scalar gate coefficients in every coordinate. Restriction dependence enters only through bundled restricted-input vectors and earlier bundled gate outputs.
 
-This identifies the correct place to seek an asymptotic obstruction: one shared DAG over many restrictions, not a sum of independent restriction costs.
+## Product-algebra parallelism barrier
+
+Let `h` have a `k`-AND circuit. For any finite coordinate set `R`, the coordinatewise extension of `h` to `A = F_2^R` is computed by exactly the same circuit wiring with the same `k` coordinatewise ANDs. Thus many parallel evaluations of one residual function cost `k`, not `|R| k`, in the shared model.
+
+Consequently, a restriction family whose coordinates reduce by polynomial shared preprocessing to instances of one smaller function `h` cannot yield a direct-sum amplification beyond
+
+\[
+MC_{shared}(bundle)\le poly(N)+MC(h).
+\]
+
+This is the main failure mode for recursive SAT restriction families.
 
 ## Candidate 1: all pinned assignments — RETIRED
 
-Consider a 3-CNF selector encoding with `N` possible clause-selector bits. For every truth assignment `a in {0,1}^n`, restrict the formula by adding clauses that pin its variables to `a`, while leaving the clause selectors free.
-
-The restricted SAT function is
+For every assignment `a`, pin all logical variables and leave clause selectors free. The restricted function is
 
 \[
-M_a(s)=\prod_{C\in F_a}(1+s_C),
+M_a(s)=\prod_{C\in F_a}(1+s_C).
 \]
 
-where `F_a` is the set of clauses falsified by assignment `a`.
-
-Although there are `2^n` such restrictions, their entire bundled family has a shared linear-size construction. Let `v_C(a)` be the indicator that `a` falsifies clause `C`. For a 3-clause, `v_C` is a product of three affine assignment-bit vectors, so it costs at most two shared coordinatewise ANDs. Then
+All `2^n` coordinates have a shared construction. A 3-clause falsification mask costs at most two coordinatewise ANDs, forming `v_C s_C` costs one, and multiplying the `N` factors costs `N-1`. Hence
 
 \[
-M(s)=\prod_C(1+v_C s_C)
+MC_{shared}\le 4N-1.
 \]
 
-computes every coordinate `M_a` simultaneously. A direct construction uses at most
+So exponentially many pinned-assignment restrictions do not force superpolynomial cost.
+
+## Candidate 2: partially pinned assignments — RETIRED AS CIRCULAR
+
+Pin `n-r` logical variables and leave `r` variables free. Each restriction coordinate is an OR over the surviving `2^r` witnesses, but after simplifying clauses under the partial assignment it is simply a smaller SAT instance.
+
+The residual clause-selector vector can be produced by polynomial shared preprocessing: masks describing how an original constant-width clause simplifies under the pinned assignment have constant multiplicative cost, and selectors that collapse to the same residual clause can be aggregated with polynomially many Boolean OR operations.
+
+After that preprocessing, one circuit for the smaller SAT function runs coordinatewise on every restriction at the same multiplicative cost by the product-algebra parallelism lemma. Therefore
 
 \[
-2N + N + (N-1)=4N-1
+MC_{shared}(partial\text{-}pin\ bundle)
+\le poly(N)+MC(SAT_{N_r}).
 \]
 
-shared ANDs: two per falsification mask, one to form `v_C s_C`, and `N-1` to multiply all factors.
+So this family cannot independently amplify a polynomial SAT circuit into a superpolynomial lower bound. Proving it hard without a new ingredient would merely re-encode the original SAT lower-bound problem at smaller size.
 
-Therefore exponentially many pinned-assignment restrictions do not force superpolynomial shared multiplicative complexity. This candidate is retired.
+## Updated bridge requirement
 
-## Candidate 2: partially pinned assignments — SELECTED
+The bridge cannot be a plain restriction/direct-sum argument in the product algebra. A surviving mechanism must defeat coordinatewise parallelism itself. It must force one shared gate to pay for some form of **incompatibility between residual computations**, rather than merely ask the same residual algorithm to run on many coordinates.
 
-Let a 3-CNF instance use `n` logical variables and `N = Theta(n^3)` possible 3-clause selector coordinates. Fix `r = floor(n/2)` logical variables as unpinned and, for every assignment `a` to the other `n-r` variables, add pinning clauses for those fixed variables while leaving the `r` variables free.
-
-For each restriction coordinate `a`, satisfiability is now an OR over `2^r` surviving witness assignments rather than a single monomial:
-
-\[
-SAT_a(s)=\bigvee_{b\in\{0,1\}^r} M_{a,b}(s),
-\]
-
-where
-
-\[
-M_{a,b}(s)=\prod_{C\in F_{a,b}}(1+s_C).
-\]
-
-The linear-size factorization that retired Candidate 1 computes one witness monomial at a time but does not by itself compute the OR/interference of all `2^r` witness monomials. Since `r = Theta(n) = Theta(N^{1/3})`, a lower bound exponential in `r` would already be superpolynomial in the encoding length `N`.
-
-No such lower bound is claimed. Candidate 2 has only survived the first cheap factorization test.
-
-The exact next question is whether the whole bundle `(SAT_a)_a` still has a polynomial shared triangular construction that exploits common witness structure. If yes, retire Candidate 2. If no explicit polynomial construction appears, search for an invariant whose value on the bundled OR-of-witnesses grows like `2^{Omega(r)}` while one shared coordinatewise AND has a provably controlled effect.
+A candidate invariant must therefore satisfy a cross-coordinate composition law that is not preserved by free coordinatewise parallel execution. If the invariant decomposes coordinate-by-coordinate, it is immediately unsuitable.
 
 ## Boundary
 
@@ -175,14 +165,15 @@ The exact next question is whether the whole bundle `(SAT_a)_a` still has a poly
 FIXED_TARGET := P != NP
 BACKWARD_FRONTIER := STO / MC(SAT_N)=N^{omega(1)}
 FORWARD_FRONTIER := finite verified ZLG lift structure; level 4 closed; level 5 partial
-UNIVERSAL_ZLG_IF_PROVED := still insufficient alone for P != NP
+UNIVERSAL_ZLG_IF_PROVED := insufficient alone
 SHARED_RESTRICTION_LEMMA := retained
-PINNED_ASSIGNMENT_FAMILY := retired; shared MC <= 4N-1
-PARTIALLY_PINNED_FAMILY := selected; survives first cheap factorization test only
-EXACT_BRIDGE := SAT-specific shared-DAG superpolynomial obstruction
+PRODUCT_ALGEBRA_PARALLELISM := retained barrier
+CANDIDATE_1_PIN_ALL := retired; shared MC <= 4N-1
+CANDIDATE_2_PIN_PART := retired as recursive/circular
+EXACT_BRIDGE := SAT-specific cross-coordinate incompatibility not parallelizable by one shared DAG
 P_NE_NP_PROVED := no
 ```
 
 ## Next bounded action
 
-Analyze Candidate 2 at the shared-DAG level before defining any new invariant. Try to factor the bundled `2^r`-witness OR using the same clause masks and shared intermediate products. If a polynomial-size recurrence exists, retire the family. Only if that direct construction fails should an invariant be introduced.
+Search for the weakest **cross-coordinate incompatibility** generated by SAT that one triangular AND gate cannot satisfy in parallel. Start with pairs or small tuples of residual SAT instances whose required gate factorizations are mutually incompatible even though each instance separately has a small realization. The quantity must measure incompatibility of shared gate parameters, not individual residual complexity. If a single shared change of basis/gate parametrization resolves the tuple, retire it immediately.
