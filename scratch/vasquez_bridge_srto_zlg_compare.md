@@ -1,6 +1,6 @@
 # Vasquez Bridge — SRTO versus current ZLG sibling algebra
 
-Status: `MISSING_COUPLING_TERM_IDENTIFIED`
+Status: `SHARED_BUNDLE_OBSTRUCTION_IDENTIFIED`
 
 ## Child bundle in zero/leak notation
 
@@ -16,31 +16,21 @@ so
 C_0=P,\qquad C_1=P+p.
 \]
 
-The SAT parent value is the OR of the children:
+The SAT parent value is
 
 \[
-C_{parent}=C_0\lor C_1.
+C_{parent}=C_0\lor C_1=P+p+Pp.
 \]
 
-Over the Boolean ring,
-
-\[
-C_{parent}
-=P+(P+p)+P(P+p)
-=P+p+Pp.
-\]
-
-Define the output-level OR aggregator
+Define
 
 \[
 \Omega(P,p):=P+p+Pp.
 \]
 
-The new nonlinear term demanded by SAT self-reduction is therefore the **output zero/leak product** `Pp`.
-
 ## What the current level-5 sibling theorem controls
 
-The existing level-5 sibling-exchange audit starts from two late gate products
+The existing level-5 sibling-exchange audit studies two late gate products
 
 \[
 PQ,\qquad UV
@@ -49,89 +39,84 @@ PQ,\qquad UV
 with collision condition
 
 \[
-PQ+UV\in S_3.
+PQ+UV\in S_3,
 \]
 
-For full zero/leak gate factors `(P,p)` and `(Q,q)`, product leakage is
+and product leakage
 
 \[
 \Theta(P,p;Q,q)=Pq+Qp+pq.
 \]
 
-The verified common-factor, zero-fiber, and labelled absorption closures classify sectors of this **gate-product collision** problem.
+Those verified sectors classify **shared gate-product collisions**. They do not directly classify the output-level SAT relation `Omega(P,p)`.
 
-They do not directly classify the SAT self-reduction condition
+## Exact OR-Absorption(1) result
 
-\[
-C_{parent}=\Omega(P,p)=P+p+Pp,
-\]
+For one control bit and three free variables, the exhaustive verifier `vasquez_bridge_or_absorption1.py` enumerates every distinct one-AND shared bundle `F(z,y)`.
 
-because `P` and `p` here are the zero and leak components of the **whole child output bundle**, not two affine factors of one late multiplication gate.
+It finds
 
-Therefore the existing level-5 closures cannot currently be cited as proving even one nontrivial instance of the SAT Self-Reduction Triangular Obstruction.
+```text
+child_bundle_functions = 1152
+distinct_parent_or_functions = 128
+mc1_parent_universe = 128
+failures = 0
+```
 
-## Missing finite theorem: OR absorption
-
-Suppose a shared triangular child circuit uses `k` AND gates and has output pair `(P,p)`. Computing `Omega(P,p)` naively requires one additional AND for `Pp`.
-
-A parent circuit of the same width `k` can satisfy SAT self-reduction only if this product is **absorbed** into the existing shared DAG: it must be expressible using the existing gate outputs and affine wiring, or a gate exchange must replace an existing multiplication without increasing width.
-
-Thus the finite local bridge problem is:
-
-> **OR-Absorption(k).** Classify all output pairs `(P,p)` obtainable from a `k`-AND shared triangular circuit for which `Omega(P,p)` also has a realization of width at most `k` compatible with the same restriction structure.
-
-A fail-closed verifier for small `k` can reuse the zero/leak pair multiplication law
+Hence every shared one-AND bundle satisfies
 
 \[
-(a,b)(c,d)=(ac,ad+bc+bd)
+MC(\Omega(P,p))\le1.
 \]
 
-but must track the final output pair, not only late gate factor planes.
+So `OR-Absorption(1)` is completely closed: once the two restrictions really come from one shared one-AND bundle, the sibling OR costs no additional multiplication.
 
-## Additive barrier
+## Correct interpretation of the selector gadget
 
-Even a theorem saying every nondegenerate SAT split forces
-
-\[
-MC(C_{parent})\ge MC(child\ bundle)+1
-\]
-
-would yield only an additive cost along a root-to-leaf chain. With `n` logical variables this gives at most an `Omega(n)` style lower bound, which is still polynomial.
-
-Therefore SRTO needs two layers:
-
-1. **local OR absorption:** characterize when one split can avoid the extra multiplication;
-2. **global incompatibility accumulation:** prove that a polynomial-width shared DAG cannot realize the required absorption choices simultaneously across the exponentially branching SAT self-reduction system.
-
-The second layer is the true asymptotic bridge.
-
-## Exact relation to the verified two-slice gadget
-
-The selector-CNF in `vasquez_bridge_pair_quadratic.py` has child slices
+The selector-CNF in `vasquez_bridge_pair_quadratic.py` has slices
 
 \[
 C_0=1+s_1s_2,\qquad C_1=1+s_1s_3.
 \]
 
-Their OR is
+Each slice separately has multiplicative complexity one, but exhaustive search over all 65,536 one-AND circuits for the four-variable controlled bundle finds no shared one-AND realization. There is an explicit two-AND realization, so the **shared bundle** has exact multiplicative complexity two.
+
+Its sibling OR is
 
 \[
 C_0\lor C_1=1+s_1s_2s_3,
 \]
 
-which has multiplicative complexity two. Each child has multiplicative complexity one. This is an exact finite example of a non-absorbed sibling OR costing one additional multiplication.
+which also has multiplicative complexity two.
 
-It validates the local phenomenon but also illustrates the additive barrier.
+Therefore this gadget is not a failure of `OR-Absorption(1)`. The obstruction occurs earlier: the two individually simple slices require incompatible factor choices and cannot be packed into one shared one-AND DAG.
+
+## Revised finite bridge object
+
+The first useful local quantity is therefore
+
+> **Shared Restriction Complexity:** the minimum number of AND gates required by one circuit whose control slices realize a prescribed tuple of residual SAT functions.
+
+The existing sibling-exchange work is relevant precisely because it studies when apparently different restricted gate products can be represented, exchanged, or absorbed inside one shared triangular DAG.
+
+The local SAT question is not merely whether `Pp` can be absorbed after the child bundle is built. It is whether the child restrictions themselves can share the same small gate factorization while also satisfying the parent self-reduction identity.
+
+## Asymptotic barrier
+
+A constant penalty for one incompatible sibling pair is not enough for `P != NP`. The needed theorem must show that incompatible shared factorizations accumulate across SAT's self-reduction system faster than any polynomial-width triangular DAG can absorb them.
+
+Fixed-degree slice invariants are especially suspect: higher-degree monomials in restricted variables can collapse to low-degree terms after restriction and generate many apparent quadratic/factorization types from a small circuit.
 
 ```text
-BACKWARD_FRONTIER := SAT self-reduction triangular obstruction (SRTO)
-CURRENT_ZLG_OBJECT := late-gate product collision PQ+UV in S3 with leakage Theta
-MISSING_LOCAL_OBJECT := output-level product Pp in Omega(P,p)=P+p+Pp
-NEXT_FINITE_THEOREM := OR-Absorption(k)
-NEXT_ASYMPTOTIC_THEOREM := incompatible OR absorptions accumulate across the shared SAT split DAG
+BACKWARD_FRONTIER := SAT Self-Reduction Triangular Obstruction (SRTO)
+CURRENT_ZLG_OBJECT := shared gate-product collision/absorption
+OR_ABSORPTION_1 := closed; 1152/1152 shared one-AND bundles remain one-AND after sibling OR
+SELECTOR_GADGET := individual slices MC=1; shared bundle MC=2; parent OR MC=2
+MISSING_LOCAL_OBJECT := shared-restriction factorization incompatibility at growing k
+MISSING_ASYMPTOTIC_OBJECT := accumulation of those incompatibilities across SAT self-reduction
 P_NE_NP_PROVED := no
 ```
 
 ## Next bounded action
 
-Build `OR-Absorption(1)` exactly first. Enumerate all one-AND output pairs under one control restriction, classify which pairs have `MC(Omega(P,p)) <= 1`, and isolate the minimal non-absorbed classes. Compare their invariant with the verified quadratic selector gadget. Only then decide whether extending the classifier to `k=2` or `k=5` is structurally useful.
+Do not jump directly to `OR-Absorption(5)`. First classify **Shared-Restriction(1)** symbolically: characterize exactly when two MC<=1 slice functions can be packed into one shared one-AND controlled function. Extract the invariant from the distinct homogeneous quadratic parts, then test whether its natural higher-`k` generalization is immediately defeated by higher-degree restriction collapse. Only a surviving invariant should be lifted to the existing level-5 sibling database.
