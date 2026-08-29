@@ -113,6 +113,40 @@ The desired scalable form is a SAT-specific quantity or family of simultaneous r
 
 Then `k=N^{O(1)}` would contradict the SAT growth condition, yielding `STO` and hence `P != NP`.
 
+## Shared-restriction lemma
+
+If one `k`-AND triangular circuit is evaluated on a family `R` of restrictions, the restrictions do not receive independent circuits. Bundling all restriction coordinates into the product algebra `A = F_2^R` produces the same `k` triangular coordinatewise products with the same scalar gate coefficients in every coordinate. Restriction dependence enters only through bundled restricted-input vectors and earlier bundled gate outputs.
+
+This identifies the correct place to seek an asymptotic obstruction: one shared DAG over many restrictions, not a sum of independent restriction costs.
+
+## Candidate 1: all pinned assignments — RETIRED
+
+Consider a 3-CNF selector encoding with `N` possible clause-selector bits. For every truth assignment `a in {0,1}^n`, restrict the formula by adding clauses that pin its variables to `a`, while leaving the clause selectors free.
+
+The restricted SAT function is
+
+\[
+M_a(s)=\prod_{C\in F_a}(1+s_C),
+\]
+
+where `F_a` is the set of clauses falsified by assignment `a`.
+
+Although there are `2^n` such restrictions, their entire bundled family has a shared linear-size construction. Let `v_C(a)` be the indicator that `a` falsifies clause `C`. For a 3-clause, `v_C` is a product of three affine assignment-bit vectors, so it costs at most two shared coordinatewise ANDs. Then
+
+\[
+M(s)=\prod_C(1+v_C s_C)
+\]
+
+computes every coordinate `M_a` simultaneously. A direct construction uses at most
+
+\[
+2N + N + (N-1)=4N-1
+\]
+
+shared ANDs: two per falsification mask, one to form `v_C s_C`, and `N-1` to multiply all factors.
+
+Therefore exponentially many pinned-assignment restrictions do not force superpolynomial shared multiplicative complexity. This candidate is retired.
+
 ## Boundary
 
 ```text
@@ -120,12 +154,12 @@ FIXED_TARGET := P != NP
 BACKWARD_FRONTIER := STO / MC(SAT_N)=N^{omega(1)}
 FORWARD_FRONTIER := finite verified ZLG lift structure; level 4 closed; level 5 partial
 UNIVERSAL_ZLG_IF_PROVED := still insufficient alone for P != NP
+SHARED_RESTRICTION_LEMMA := retained
+PINNED_ASSIGNMENT_FAMILY := retired; shared MC <= 4N-1
 EXACT_BRIDGE := SAT-specific shared-DAG superpolynomial obstruction
 P_NE_NP_PROVED := no
 ```
 
 ## Next bounded action
 
-Do not spend the next step merely clearing another level-5 orbit.
-
-Construct the weakest SAT-specific **simultaneous restriction/shared-gate statement** that could satisfy the two bridge conditions above. Test first whether the same `k` triangular gate parameters can be forced to serve a growing family of SAT restrictions without paying `k` again for every restriction. Retire the candidate immediately if its bound factors independently across restrictions or grows only polynomially on SAT.
+Seek a SAT restriction family whose bundled outputs cannot be factorized as a product of independently generated local falsification masks. The next candidate must survive the test that a polynomial number of coordinate-mask generators plus a product tree already yields a polynomial shared circuit. Retire it immediately if such a shared factorization exists.
