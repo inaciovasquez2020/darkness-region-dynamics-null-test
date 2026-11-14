@@ -50,7 +50,13 @@ for forbidden in [
 theorem = data["conditional_theorem"]
 assert theorem["name"] == "FiniteSensitivityDarknessCouplingExclusionTheorem"
 assert "MeasuredNullDataset" in theorem["assumptions"]
-assert "predicted residual norm exceeds tau" in theorem["conclusion"]
+assert "norm > tau + delta" in theorem["conclusion"]
+assert any(
+    "justified deterministic bound" in assumption
+    and "||predicted_residual(D) - measured_residual|| <= delta" in assumption
+    for assumption in theorem["assumptions"]
+)
+assert "tau + delta" in data["definitions"]["excluded_region"]
 
 schema = data["dataset_schema_required"]
 for key in ["dataset_id", "apparatus_id", "probe_id", "epsilon", "tau", "N_min", "trials"]:

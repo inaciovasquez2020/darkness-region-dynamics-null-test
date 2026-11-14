@@ -19,7 +19,7 @@
     "illuminated_control_region": "forall x in U_light, Phi_gamma_light(x;B) >= epsilon",
     "residual": "R_m = gamma_dark - gamma_light - K",
     "null_dataset": "valid_dataset and forall trials, residual_norm <= tau",
-    "excluded_region": "{D in C_D : predicted_residual_norm_A(D) > tau}"
+    "excluded_region": "{D in C_D : predicted_residual_norm_A(D) > tau + delta under a justified deterministic discrepancy bound delta}"
   },
   "conditional_theorem": {
     "name": "FiniteSensitivityDarknessCouplingExclusionTheorem",
@@ -30,9 +30,10 @@
       "CalibratedProbe(m)",
       "CalibratedTolerance(tau)",
       "MeasuredNullDataset",
-      "N >= N_min"
+      "N >= N_min",
+      "For each compatible candidate D, justified deterministic bound ||predicted_residual(D) - measured_residual|| <= delta"
     ],
-    "conclusion": "All tested couplings in C_D whose predicted residual norm exceeds tau are excluded for apparatus class A, probe m, bandwidth B, regions U_dark/U_light, and known-field model K."
+    "conclusion": "If observed residual norms are <= tau, candidate predictions with norm > tau + delta are incompatible with the observations under a justified deterministic discrepancy bound. No empirical exclusion is established without real calibrated measurements."
   },
   "forbidden_claims": [
     "DarknessFieldD_exists",
@@ -42,7 +43,7 @@
     "new_physics_detected",
     "matter_travels_inside_darkness_as_substance"
   ],
-  "valid_claim": "Controlled dark-region traversal experiments can exclude measurable matter-coupling effects above tolerance tau within a specified apparatus class.",
+  "valid_claim": "Conditional deterministic exclusion requires predicted residual norm > tau + delta under justified discrepancy bounds; no measured physical null has been established.",
   "dataset_schema_required": {
     "dataset_id": "string",
     "apparatus_id": "string",
