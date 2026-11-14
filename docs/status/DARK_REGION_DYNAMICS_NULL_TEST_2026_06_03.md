@@ -26,11 +26,11 @@ If a controlled dark-region/illuminated-region dataset satisfies:
 - all residual norms satisfy `||R_m|| ≤ τ`,
 - reproducibility count satisfies `N ≥ N_min`,
 
-then all tested couplings in `C_D` whose predicted residual exceeds `τ` are excluded for that apparatus class.
+then all tested couplings in `C_D` whose predicted residual exceeds `τ + δ` under a justified deterministic discrepancy bound `δ` are excluded for that apparatus class.
 
 ## Valid claim
 
-Controlled dark-region traversal experiments can exclude measurable matter-coupling effects above tolerance `τ` within a specified apparatus class.
+Controlled dark-region traversal experiments can exclude measurable matter-coupling effects above tolerance `τ + δ` under a justified discrepancy bound `δ` within a specified apparatus class.
 
 ## Boundary
 
