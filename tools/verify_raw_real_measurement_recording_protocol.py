@@ -17,7 +17,11 @@ assert data["real_measurement_dataset_supplied"] is False
 assert data["next_admissible_object"] == "RawRealMeasurementRecording"
 
 assert (ROOT / "docs" / "protocols").exists()
-assert (ROOT / "data" / "real_measurements" / "raw").exists()
+# Raw recordings are deliberately absent from the version-controlled protocol package.
+# An absent raw/ directory must never be mistaken for an observed experiment.
+raw_recording = ROOT / "data" / "real_measurements" / "raw" / "light_occluder_boundary_trial_001.mov"
+if not raw_recording.is_file():
+    print("RAW_REAL_MEASUREMENT_RECORDING := NOT_SUPPLIED")
 assert (ROOT / "data" / "real_measurements" / "metadata").exists()
 assert (ROOT / "data" / "real_measurements" / "extracted").exists()
 
